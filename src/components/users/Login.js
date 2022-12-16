@@ -14,7 +14,8 @@ const Login = () => {
         .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
-            navigate("/")
+            //Este navigate es temporal
+            navigate("/profile")
             console.log(user);
         })
         .catch((error) => {
