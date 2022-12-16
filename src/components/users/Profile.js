@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/firebase';
+import { signOut } from "firebase/auth";
+
 
  
 const Profile = () => {
@@ -9,9 +11,15 @@ const Profile = () => {
 
     const user = auth.currentUser.email;
 
-
+    //This logout function and it's button is temporarly in the profile, it's not their final place
     const handleLogout = () => {
-
+        signOut(auth).then(() => {
+            // Sign-out successful.
+                navigate("/");
+                console.log("Signed out successfully")
+            }).catch((error) => {
+                console.log(error);
+            });
     }
 
     const handleEliminateAccount = () => {
