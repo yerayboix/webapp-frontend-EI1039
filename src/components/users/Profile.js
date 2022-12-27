@@ -57,6 +57,7 @@ const Profile = () => {
     }
 
     const handleChangePaswd = () =>{
+        navigate("/changepswd")
     }
 
     return(
