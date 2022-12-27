@@ -19,7 +19,7 @@ const Profile = () => {
         let entries = {
             userUID,
         };
-        fetch("/user",{
+        fetch("/profile",{
             method:'POST',
             body: JSON.stringify(entries),
             headers:{
