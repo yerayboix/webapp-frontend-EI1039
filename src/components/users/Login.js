@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
  
 const Login = () => {
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState("");
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -13,17 +14,17 @@ const Login = () => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in
+            console.log(userCredential);
             const user = userCredential.user;
-            //Este navigate es temporal
-            navigate("/profile")
             console.log(user);
+            window.localStorage.setItem('email', user.email);
+            window.localStorage.setItem('uid', user.uid);
+            //Este navigate es temporal
+            navigate("/profile");
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage)
+            setErrorMessage(error.message);
         });
-       
     }
  
     return(
@@ -51,27 +52,28 @@ const Login = () => {
 
                                     <h5 className="fw-normal mb-3 pb-3" style={{letterSpacing: '1px'}}>Sign into your account</h5>
 
-                                    <div className="form-outline mb-4">
-                                        <input type="email" id="email-address" className="form-control form-control-lg" 
-                                                        onChange={(e)=>setEmail(e.target.value)}/>
+                                    <div className="form mb-4">
                                         <label className="form-label" htmlFor="email-address">Email address</label>
+                                        <input type="email" id="email-address" required className="form-control form-control-lg" 
+                                                        onChange={(e)=>setEmail(e.target.value)}/>                                        
                                     </div>
 
-                                    <div className="form-outline mb-4">
-                                        <input type="password" id="password" name="password" required className="form-control form-control-lg"
-                                                        onChange={(e)=>setPassword(e.target.value)} />
+                                    <div className="form mb-4">
                                         <label className="form-label" htmlFor="password">Password</label>
+                                        <input type="password" id="password" name="password" required className="form-control form-control-lg"
+                                                        onChange={(e)=>setPassword(e.target.value)} />                                        
                                     </div>
 
                                     <div className="pt-1 mb-4">
                                         <button className="btn btn-dark btn-lg btn-block" type="button" onClick={onLogin} >Login</button>
                                     </div>
-                                    
+                                    {errorMessage && <div className="error"> {errorMessage} </div>}
                                     <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Don't have an account? {' '}
                                         <NavLink to="/signup">
                                             Sign up
                                         </NavLink>
-                                    </p>
+                                    </p>                                  
+                                    
                                     </form>
 
                                 </div>
