@@ -6,14 +6,16 @@ import { useState } from "react";
 import { useEffect } from 'react';
 
 
- 
-const Profile = () => {
 
+const Profile = () => {
+    console.log(window.localStorage)
     const navigate = useNavigate();
-    const [user, setUser] = useState(auth.currentUser.email);
-    const [userUID, setUserUID] = useState(auth.currentUser.uid);
+    const [user, setUser] = useState(window.localStorage.getItem('email'));
+    const [userUID, setUserUID] = useState(window.localStorage.getItem('uid'));
     const [errorMessage, setErrorMessage] = useState('');
     const [userServices, setUserServices] = useState(null);
+
+    console.log(window.localStorage.getItem('email'))
 
     useEffect(() => {
         let entries = {
@@ -30,7 +32,6 @@ const Profile = () => {
             console.error('Error:',error)
             )
         .then((response)=>{
-            console.log(response);
             if(response.servicesByDefault.length === 3){
                 setUserServices(response.servicesByDefault);
             }
