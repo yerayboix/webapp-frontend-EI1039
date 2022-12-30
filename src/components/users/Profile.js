@@ -48,6 +48,7 @@ const Profile = () => {
             // Sign-out successful.
                 navigate("/");
                 console.log("Signed out successfully")
+                window.localStorage.clear();
             }).catch((error) => {
                 console.log(error);
             });

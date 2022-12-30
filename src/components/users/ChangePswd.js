@@ -20,7 +20,7 @@ const ChangePswd = () => {
 
     const onChangePswd = (e) => {
         e.preventDefault();
-        let userUID = auth.currentUser.uid
+        let userUID = window.localStorage('uid');
 
         const entries = {
             userUID,
