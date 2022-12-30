@@ -51,16 +51,16 @@ const Login = () => {
 
                                     <h5 className="fw-normal mb-3 pb-3" style={{letterSpacing: '1px'}}>Sign into your account</h5>
 
-                                    <div className="form-outline mb-4">
-                                        <input type="email" id="email-address" className="form-control form-control-lg" 
-                                                        onChange={(e)=>setEmail(e.target.value)}/>
+                                    <div className="form mb-4">
                                         <label className="form-label" htmlFor="email-address">Email address</label>
+                                        <input type="email" id="email-address" className="form-control form-control-lg" 
+                                                        onChange={(e)=>setEmail(e.target.value)}/>                                        
                                     </div>
 
-                                    <div className="form-outline mb-4">
-                                        <input type="password" id="password" name="password" required className="form-control form-control-lg"
-                                                        onChange={(e)=>setPassword(e.target.value)} />
+                                    <div className="form mb-4">
                                         <label className="form-label" htmlFor="password">Password</label>
+                                        <input type="password" id="password" name="password" required className="form-control form-control-lg"
+                                                        onChange={(e)=>setPassword(e.target.value)} />                                        
                                     </div>
 
                                     <div className="pt-1 mb-4">
