@@ -6,10 +6,8 @@ import {
     MDBCard,
     MDBCardBody,
     MDBInput,
-    MDBIcon,
     MDBRow,
-    MDBCol,
-    MDBCheckbox
+    MDBCol
   }
   from 'mdb-react-ui-kit';
 
@@ -20,31 +18,31 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const onSubmit = async(e) =>{
-        e.preventDefault();
+    const onSubmit = async (e) =>{
+      e.preventDefault();
 
-        const user = {
-            email,
-            password,
-        };
-
-        fetch('/user', {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers:{
-                'Content-Type': 'application/json'
-              }
-        }).then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response =>{
-            if (response.mssg === 'Success'){
-                navigate('/login');
+      const user = {
+          email,
+          password,
+      };
+      
+      fetch('/user', {
+          method: 'POST',
+          body: JSON.stringify(user),
+          headers:{
+              'Content-Type': 'application/json'
             }
-            else{
-                setErrorMessage(response.mssg);
-            }
-        });
-    }
+      }).then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response =>{
+          if (response.mssg === 'Success'){
+              navigate('/login');
+          }
+          else{
+              setErrorMessage(response.mssg);
+          }
+      });
+  }
  
   return (
     <section className="vh-100" style={{backgroundColor: '#9A616D'}}>
@@ -59,23 +57,23 @@ const Signup = () => {
               <h2 className="h1 fw-bold mb-0" style={{letterSpacing: '1px'}}>Sign up</h2>
               <p className="text-grey-50 mb-3">Please enter your login and password!</p>
 
-              <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='formControlLg' type='email' onChange={(e) => setEmail(e.target.value)}  
+              <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='email' type='email' onChange={(e) => setEmail(e.target.value)}  
                                 required value={email} size="lg"/>
-              <MDBInput wrapperClass='mb-4 w-100' label='Password' id='formControlLg' type='password' onChange={(e) => setPassword(e.target.value)}
+              <MDBInput wrapperClass='mb-4 w-100' label='Password' id='password' type='password' onChange={(e) => setPassword(e.target.value)}
                                 required value={password} size="lg"/>
 
-              <MDBBtn className="btn btn-dark btn-lg btn-block" size='lg' onClick={onSubmit}>
+              <MDBBtn type='submit' onClick={onSubmit} className="btn btn-dark btn-lg btn-block" size='lg' >
                 Sign up
               </MDBBtn>
 
               {errorMessage && <div className="error"> {errorMessage} </div>} 
               <hr className="my-4" />
               <p>
-                        Already have an account?{' '}
-                        <NavLink to="/login" >
-                            Log in
-                        </NavLink>
-                    </p>    
+                  Already have an account?{' '}
+                  <NavLink to="/login" >
+                      Log in
+                  </NavLink>
+              </p>    
             </MDBCardBody>
           </MDBCard>
 
