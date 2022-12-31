@@ -1,8 +1,11 @@
 import React from 'react';
 import { useState } from "react";
+import { auth } from '../../config/firebase';
+import { signOut } from 'firebase/auth';
 import {
   MDBNavbar,
   MDBNavbarNav,
+  MDBNavbarBrand,
   MDBNavbarItem,
   MDBNavbarLink,
   MDBNavbarToggler,
@@ -10,57 +13,35 @@ import {
   MDBIcon,
   MDBCollapse
 } from 'mdb-react-ui-kit';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Header() {
     const [showBasic, setShowBasic] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        signOut(auth).then(() => {
+            // Sign-out successful.
+                navigate("/login");
+                console.log("Signed out successfully")
+                window.localStorage.clear();
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
 
   return (
-    <><header>
-          <MDBNavbar expand='lg' light bgColor='white' sticky>
-              <MDBContainer fluid>
-                  <MDBNavbarToggler
-                      onClick={() => setShowBasic(!showBasic)}
-                      aria-controls='navbarExample01'
-                      aria-expanded='false'
-                      aria-label='Toggle navigation'
-                  >
-                      <MDBIcon fas icon='bars' />
-                  </MDBNavbarToggler>
-                  <MDBCollapse show={showBasic} v-model="collapse1" id="navbarSupportedContent">
-                  <MDBNavbarNav right className='mb-2 mb-lg-0'>
-                      <MDBNavbarItem>
-                          <MDBNavbarLink aria-current='page' href='#'>
-                              Home
-                          </MDBNavbarLink>
-                      </MDBNavbarItem>
-                      <MDBNavbarItem>
-                          <MDBNavbarLink href='#'>Buscador</MDBNavbarLink>
-                      </MDBNavbarItem>
-                      <MDBNavbarItem>
-                          <MDBNavbarLink href='#'>Perfil</MDBNavbarLink>
-                      </MDBNavbarItem>
-                      <MDBNavbarItem>
-                          <MDBNavbarLink href='#'>Cerrar Sesión</MDBNavbarLink>
-                      </MDBNavbarItem>
-                  </MDBNavbarNav>
-                  
-                  </MDBCollapse>
-          </MDBContainer>
-      </MDBNavbar><div
-          className='p-5 text-center bg-image'
-          style={{ backgroundImage: "url('https://www.mapfre.es/media/mapfre-545x257-permisos-alquiler-casa-para-hacer-eventos.jpg')", height: 400 }}
-      >
-              <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
-                  <div className='d-flex justify-content-center align-items-center h-100'>
-                      <div className='text-white'>
-                          <h1 className='mb-3'>LocalHost</h1>
-                          <h4 className='mb-3'>EI1038</h4>
-                      </div>
-                  </div>
-              </div>
-          </div>
-    </header></>
+    <>
+        <MDBNavbar expand='lg' light bgColor='dark' sticky>
+        <MDBContainer className='d-flex justify-content-start' fluid>
+          <MDBNavbarBrand className='d-flex justify-content-start' bgcolor='light' href='#'><MDBIcon color='light' fas icon="home"/></MDBNavbarBrand>
+        </MDBContainer>
+        <MDBContainer className='d-flex justify-content-end' id='logged'>
+            <MDBNavbarBrand className='d-flex justify-content-start' href='/profile'><MDBIcon color='white' fas icon="user" /></MDBNavbarBrand>
+            <MDBNavbarBrand className='d-flex justify-content-start' type='button'><MDBIcon onClick={handleLogout} color='danger' fas icon="sign-out-alt" /></MDBNavbarBrand>
+        </MDBContainer>
+      </MDBNavbar></>
   );
 }

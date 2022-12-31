@@ -4,14 +4,17 @@ import { auth } from '../../config/firebase';
 import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { useEffect } from 'react';
+import Header from '../body/Header';
 
 
 
 const Profile = () => {
     console.log(window.localStorage)
     const navigate = useNavigate();
-    const [user, setUser] = useState(window.localStorage.getItem('email'));
-    const [userUID, setUserUID] = useState(window.localStorage.getItem('uid'));
+    const localUser = window.localStorage.getItem('email');
+    const localUid = window.localStorage.getItem('uid');
+    const [user, setUser] = useState(localUser);
+    const [userUID, setUserUID] = useState(localUid);
     const [errorMessage, setErrorMessage] = useState('');
     const [userServices, setUserServices] = useState(null);
     
@@ -68,7 +71,9 @@ const Profile = () => {
     }
 
     return(
+        
         <>
+            <Header/>
             <nav>
                 <p>
                     Welcome to the beta profile, {user} <br></br>
