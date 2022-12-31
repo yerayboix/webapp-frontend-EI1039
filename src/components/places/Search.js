@@ -2,6 +2,18 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/firebase';
 import { useState } from "react";
+import {
+    MDBTable,
+    MDBTableBody,
+    MDBTableHead,
+    MDBContainer,
+    MDBCol,
+    MDBRow,
+    MDBInput,
+    MDBBtn,
+    MDBCard,
+    MDBCardBody
+} from 'mdb-react-ui-kit';
  
 const Search = () => {
 
@@ -49,48 +61,61 @@ const Search = () => {
 
     
     return(
-        <div className="Search">
-            <div className="searchBar">
-                <form onSubmit={handleSearch}>
-                    <input type='text' name='searchBar' placeholder='Search place...' onChange={(e)=>setSearchTerm(e.target.value)}/>
-                    <select value={searchType} onChange={(e)=>setSearchType(e.target.value)}>
-                        <option value="P">Place</option>
-                        <option value="C">Coordinates</option>
-                    </select>
-                    <input type="submit"/>
-                </form>
-            </div>
-            <div>
-                {console.log(searchResults)}
-            { (!(searchResults instanceof Array)) ||searchResults.length===0
-                ? 
-                    <div>
-                        <h1>There is no result matching that criteria</h1>
-                    </div>
-                :
-                    <div>
-                    {searchType==='P'
-                        ?
+        <div className="Search vh-100 pt-4" style={{backgroundColor: '#9A616D'}}>
+           <MDBContainer fluid>
+            
+                <MDBCard className='bg-white mx-auto ' style={{borderRadius: '1rem'}}>
+                    <MDBCardBody className='p-5  d-flex flex-column'>
+            
+                        <MDBRow className='searchBar d-flex justify-content-center align-items-center h-100'>
+                            <MDBCol>
+                                <MDBInput wrapperClass='mb-4 w-100' label='Search place...' id='searchBar' type='text'name='searchBar' size="lg" onChange={(e)=>setSearchTerm(e.target.value)}/>
+                            </MDBCol>
+                            <MDBCol>
+                                <select  className='mb-4 w-100' value={searchType} onChange={(e)=>setSearchType(e.target.value)}>
+                                    <option value="P">Place</option>
+                                    <option value="C">Coordinates</option>
+                                </select>
+                            </MDBCol>
+                            <MDBCol>
+                                <MDBBtn type='submit' onClick={handleSearch} className="btn btn-dark btn-lg btn-block mb-4" size='lg' >
+                                    Enviar
+                                </MDBBtn>
+                            </MDBCol>
+                        </MDBRow>
+                    <div>   
+                { (!(searchResults instanceof Array)) ||searchResults.length===0
+                    ? 
                         <div>
-                            <table>
-                                <tbody>
-                                    {console.log(searchResults)}
-                                    {searchResults.map((place)=>(
-                                        <tr key={place.formatted}>
-                                            <td>{place.formatted}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                            <h1>There is no result matching that criteria</h1>
                         </div>
-                        :
+                    :
                         <div>
-                            <h2>{searchResults[0].formatted}</h2>
+                        {searchType==='P'
+                            ?
+                            <div>
+                                <MDBTable>
+                                    <MDBTableBody>
+                                        {searchResults.map((place)=>(
+                                            <tr key={place.formatted}>
+                                                <td>{place.formatted}</td>
+                                            </tr>
+                                        ))}
+                                    </MDBTableBody>
+                                </MDBTable>
+                            </div>
+                            :
+                            <div>
+                                <h2>{searchResults[0].formatted}</h2>
+                            </div>
+                        }
                         </div>
-                    }
-                    </div>
-            }
-            </div>
+                }
+                </div>
+            
+        </MDBCardBody>
+        </MDBCard>
+            </MDBContainer>
         </div>
     )
 }
