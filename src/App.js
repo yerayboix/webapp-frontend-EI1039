@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router} from 'react-router-dom';
 import {Routes, Route} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Signup from './components/users/Signup';
 import Login from './components/users/Login';
 import Profile from './components/users/Profile';
@@ -11,6 +12,7 @@ import ChangePswd from './components/users/ChangePswd';
 function App() {
  window.localStorage.clear();
   return (
+    <>
     <Router>
       <div>
         <section>                              
@@ -23,6 +25,7 @@ function App() {
         </section>
       </div>
     </Router>
+    </>
   );
 }
 export default App;
