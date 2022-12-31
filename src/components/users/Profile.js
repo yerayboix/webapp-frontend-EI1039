@@ -14,10 +14,15 @@ const Profile = () => {
     const [userUID, setUserUID] = useState(window.localStorage.getItem('uid'));
     const [errorMessage, setErrorMessage] = useState('');
     const [userServices, setUserServices] = useState(null);
-
-    console.log(window.localStorage.getItem('email'))
-
+    
     useEffect(() => {
+        //Funcion que comprueba si estamos logeados
+        const token = localStorage.getItem('uid');
+        console.log(token)
+        if(token == null){
+            navigate('/login');
+        }
+        //Si esta iniciado sesion continua
         let entries = {
             userUID,
         };
