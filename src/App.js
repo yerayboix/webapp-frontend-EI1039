@@ -9,7 +9,7 @@ import ChangePswd from './components/users/ChangePswd';
 
  
 function App() {
- 
+ window.localStorage.clear();
   return (
     <Router>
       <div>
