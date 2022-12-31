@@ -39,9 +39,9 @@ const Search = () => {
             if(response.mssg === 'Success'){
                 console.log(response.values);
                 setSearchResults(response.values);
-                console.log(searchResults + "despues de setear")
             }else{
                 setErrorMessage(response.mssg);
+                setSearchResults([]);
             }
         });
         
@@ -85,7 +85,7 @@ const Search = () => {
                         </div>
                         :
                         <div>
-
+                            <h2>{searchResults[0].formatted}</h2>
                         </div>
                     }
                     </div>
