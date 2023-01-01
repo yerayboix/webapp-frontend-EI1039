@@ -10,28 +10,24 @@ import {
   MDBModalFooter,
 } from 'mdb-react-ui-kit';
 
-const NotificationPopup = (message) => {
+const PlaceAddedPopup = () => {
   const [staticModal, setStaticModal] = useState(false);
 
   const toggleShow = () => setStaticModal(!staticModal);
 
   return (
     <>
-      <MDBBtn onClick={toggleShow}>Launch static backdrop modal</MDBBtn>
-
       <MDBModal staticBackdrop tabIndex='-1' show={staticModal} setShow={setStaticModal}>
         <MDBModalDialog>
           <MDBModalContent>
             <MDBModalHeader>
-              <MDBModalTitle>Modal title</MDBModalTitle>
-              <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
+            <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
             </MDBModalHeader>
-            <MDBModalBody>...</MDBModalBody>
-            <MDBModalFooter>
-              <MDBBtn color='secondary' onClick={toggleShow}>
-                Close
-              </MDBBtn>
-              <MDBBtn>Understood</MDBBtn>
+            <MDBModalBody style={{display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+                <h3>Ubicacion añadida con éxito.</h3>
+            </MDBModalBody>
+            <MDBModalFooter style={{display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+              <MDBBtn className='center'>Volver a la página de inicio</MDBBtn>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>
@@ -39,4 +35,4 @@ const NotificationPopup = (message) => {
     </>
   );
 }
-export default NotificationPopup;
+export default PlaceAddedPopup;

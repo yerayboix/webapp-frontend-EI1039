@@ -12,13 +12,21 @@ import {
     MDBInput,
     MDBBtn,
     MDBCard,
-    MDBCardBody
+    MDBCardBody,
+    MDBModal,
+    MDBModalDialog,
+    MDBModalContent,
+    MDBModalHeader,
+    MDBModalTitle,
+    MDBModalBody,
+    MDBModalFooter,
 } from 'mdb-react-ui-kit';
  
 const Search = () => {
 
     console.log(window.localStorage);
-
+    const [staticModal, setStaticModal] = useState(false);
+    const toggleShow = () => setStaticModal(!staticModal);
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
@@ -28,7 +36,6 @@ const Search = () => {
     const [user, setUser] = useState(window.localStorage.getItem('email'));
     const [userUID, setUserUID] = useState(window.localStorage.getItem('uid'));
     
-
     const handleSearch = async (e) => {
         e.preventDefault();
         const searchObjective = {
@@ -130,7 +137,7 @@ const Search = () => {
                                         {searchResults.map((place)=>(
                                             <tr key={place.formatted}>
                                                 <td>{place.formatted}</td>
-                                                <td><MDBBtn onClick={() => handleAdd(place)}>Add to List</MDBBtn></td>
+                                                <td><MDBBtn onClick={() => {handleAdd(place); toggleShow()}}>Add to List</MDBBtn></td>
                                             </tr>
                                         ))}
                                     </MDBTableBody>
@@ -142,7 +149,7 @@ const Search = () => {
                                     <MDBTableBody>
                                             <tr>
                                                 <td><h2>{searchResults[0].formatted}</h2></td>
-                                                <td><MDBBtn onClick={() => handleAdd(searchResults[0])}>Add to List</MDBBtn></td>
+                                                <td><MDBBtn onClick={() => {handleAdd(searchResults[0]); toggleShow()}}>Add to List</MDBBtn></td>
                                             </tr>
                                     </MDBTableBody>
                                 </MDBTable>
@@ -153,6 +160,23 @@ const Search = () => {
                     </div>
                 </MDBCardBody>
                 </MDBCard>
+                {/* INICIO POPUP DE QUE HAS AÑADIDO LA UBICACION */}
+                            <MDBModal staticBackdrop tabIndex='-1' show={staticModal} setShow={setStaticModal}>
+                    <MDBModalDialog>
+                    <MDBModalContent>
+                        <MDBModalHeader>
+                        <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
+                        </MDBModalHeader>
+                        <MDBModalBody style={{display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+                            <h3>Ubicacion añadida con éxito.</h3>
+                        </MDBModalBody>
+                        <MDBModalFooter style={{display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+                        <MDBBtn className='center' >Volver a la página de inicio</MDBBtn>
+                        </MDBModalFooter>
+                    </MDBModalContent>
+                    </MDBModalDialog>
+                </MDBModal>
+            {/* FINAL POPUP DE QUE HAS AÑADIDO LA UBICACION */}
             </MDBContainer>
         </div>
     )
