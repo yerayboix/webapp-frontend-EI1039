@@ -63,7 +63,7 @@ const Search = () => {
 
     const handleAdd = async (place) =>{
         console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        let coordinates = [place.lon, place.lat];
+        let coordinates = [parseFloat(place.lon).toFixed(2), parseFloat(place.lat).toFixed(2)];
         let name = place.city;
         const entries = {
             userUID,
