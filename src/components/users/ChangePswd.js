@@ -11,6 +11,7 @@ import {
     MDBCol
   }
   from 'mdb-react-ui-kit';
+import Header from '../body/Header';
  
 const ChangePswd = () => {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ const ChangePswd = () => {
 
     const onChangePswd = (e) => {
         e.preventDefault();
-        let userUID = window.localStorage('uid');
+        let userUID = window.localStorage.getItem('uid');
 
         const entries = {
             userUID,
@@ -48,6 +49,7 @@ const ChangePswd = () => {
  
     return(
         <main>
+            <Header></Header>
                 
     <section className="vh-100" style={{backgroundColor: '#9A616D'}}>
         <MDBContainer fluid>
@@ -58,17 +60,18 @@ const ChangePswd = () => {
             <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
                 <MDBCardBody className='p-5 w-100 d-flex flex-column'>
 
-                <h2 className="h1 fw-bold mb-0" style={{letterSpacing: '1px'}}>Change Password</h2>
-                <p className="text-grey-50 mb-3">Please enter your new password!</p>
+                <h2 className="h1 fw-bold mb-0" style={{letterSpacing: '1px'}}>Cambiar Contraseña</h2>
+                <p className="text-grey-50 mb-3">Por favor, introduce tu nueva contraseña!</p>
 
-                <MDBInput wrapperClass='mb-4 w-100' label='Password' id='new-password' type='password' onChange={(e) => setNewPassword(e.target.value)}
+                <MDBInput wrapperClass='mb-4 w-100' label='Contraseña' id='new-password' type='password' onChange={(e) => setNewPassword(e.target.value)}
                                     required value={newpassword} minLength="6" size="lg"/>
 
-                <MDBBtn className="btn btn-dark btn-lg btn-block" size='lg' onClick={onChangePswd}>
-                    Change Password   
-                </MDBBtn>
-
-                {errorMessage && <div className="error"> {errorMessage} </div>}
+                <MDBBtn type='submit' onClick={onChangePswd} className="btn btn-warning btn-lg btn-block " size='lg'  style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)' }} >
+                            Cambiar contraseña
+                            {errorMessage && <div className='justify-content-center align-items-center error' style={{width: '100%', color:'red'}}>
+                     <p >{errorMessage} </p>
+                </div>}
+                        </MDBBtn>
                 </MDBCardBody>
             </MDBCard>
 
