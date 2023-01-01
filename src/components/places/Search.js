@@ -25,6 +25,8 @@ const Search = () => {
     //The search type can be P for Places or C for coordinates
     const [searchType, setSearchType] = useState('P');
     const [searchResults, setSearchResults] = useState([]);
+    const [user, setUser] = useState(window.localStorage.getItem('email'));
+    const [userUID, setUserUID] = useState(window.localStorage.getItem('uid'));
     
 
     const handleSearch = async (e) => {
@@ -59,11 +61,40 @@ const Search = () => {
         
     }
 
+    const handleAdd = async (place) =>{
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        let coordinates = [place.lon, place.lat];
+        let name = place.city;
+        const entries = {
+            userUID,
+            coordinates,
+            name
+        }
+
+        fetch("/place/add", {
+            method: 'POST',
+            body: JSON.stringify(entries),
+            headers:{
+                'Content-Type': 'application/json'
+                }
+        }).then(res => res.json())
+        .catch(error => console.log('Error:',error))
+        .then(response =>{
+            if(response.mssg === 'Success'){
+                setSearchResults([]);
+                console.log("added");
+                //Hacer algo no se front
+            }else{
+                setErrorMessage(response.mssg);
+            }
+        });
+        
+    }
+
     
     return(
         <div className="Search vh-100 pt-4" style={{backgroundColor: '#9A616D'}}>
            <MDBContainer fluid>
-            
                 <MDBCard className='bg-white mx-auto ' style={{borderRadius: '1rem'}}>
                     <MDBCardBody className='p-5  d-flex flex-column'>
             
@@ -72,7 +103,7 @@ const Search = () => {
                                 <MDBInput wrapperClass='mb-4 w-100' label='Search place...' id='searchBar' type='text'name='searchBar' size="lg" onChange={(e)=>setSearchTerm(e.target.value)}/>
                             </MDBCol>
                             <MDBCol>
-                                <select  className='mb-4 w-100' value={searchType} onChange={(e)=>setSearchType(e.target.value)}>
+                                <select  className='mb-4 w-100' value={searchType} onChange={(e)=>{setSearchType(e.target.value); setSearchResults([])}}>
                                     <option value="P">Place</option>
                                     <option value="C">Coordinates</option>
                                 </select>
@@ -84,7 +115,7 @@ const Search = () => {
                             </MDBCol>
                         </MDBRow>
                     <div>   
-                { (!(searchResults instanceof Array)) ||searchResults.length===0
+                    { (!(searchResults instanceof Array)) ||searchResults.length===0
                     ? 
                         <div>
                             <h1>There is no result matching that criteria</h1>
@@ -99,6 +130,7 @@ const Search = () => {
                                         {searchResults.map((place)=>(
                                             <tr key={place.formatted}>
                                                 <td>{place.formatted}</td>
+                                                <td><MDBBtn onClick={() => handleAdd(place)}>Add to List</MDBBtn></td>
                                             </tr>
                                         ))}
                                     </MDBTableBody>
@@ -106,15 +138,21 @@ const Search = () => {
                             </div>
                             :
                             <div>
-                                <h2>{searchResults[0].formatted}</h2>
+                                <MDBTable>
+                                    <MDBTableBody>
+                                            <tr>
+                                                <td><h2>{searchResults[0].formatted}</h2></td>
+                                                <td><MDBBtn onClick={() => handleAdd(searchResults[0])}>Add to List</MDBBtn></td>
+                                            </tr>
+                                    </MDBTableBody>
+                                </MDBTable>
                             </div>
                         }
                         </div>
-                }
-                </div>
-            
-        </MDBCardBody>
-        </MDBCard>
+                    }
+                    </div>
+                </MDBCardBody>
+                </MDBCard>
             </MDBContainer>
         </div>
     )
