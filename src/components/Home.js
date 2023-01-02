@@ -20,11 +20,13 @@ const listItems = data.map((card) => {
   return (
     <>
     <Header/>
-    <section className="vh-100" style={{backgroundColor: '#9A616D'}}>
+    <section style={{backgroundColor: '#9A616D', flex: 1}}>
       <h1 style={{color: 'white', textAlign: 'center'}}>Mis ubicaciones</h1>
-      <MDBRow>
-          {listItems}
-      </MDBRow>
+      <div style={{paddingLeft: '1rem', paddingRight: '1rem'}}>
+        <MDBRow>
+            {listItems}
+        </MDBRow>
+      </div>
     </section>
     <Footer/>
     </>

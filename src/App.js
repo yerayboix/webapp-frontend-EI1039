@@ -16,7 +16,7 @@ function App() {
     <>
     <Router>
       <div>
-        <section>                              
+        <section style={{height: '100vh', display: 'flex', flexDirection: 'column'}}>                              
             <Routes>
             <Route path="/" element={<Home/>}/>
               <Route path="/login" element={<Login/>}/>
