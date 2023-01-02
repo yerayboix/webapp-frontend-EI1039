@@ -26,7 +26,7 @@ export default function Card({ubication, response}) {
 
             <div class="d-flex align-items-center">
               <div class="flex-grow-1" style={{fontSize: '1rem'}}>
-              <div><i class="fas fa-wind fa-fw" style={{color: '#868B94'}}></i> <span class="ms-1"> {response.OpenWeather.wind.speed.toFixed(1)} m/s
+                <div><i class="fas fa-wind fa-fw" style={{color: '#868B94'}}></i> <span class="ms-1"> {response.OpenWeather.wind.speed.toFixed(1)} m/s
                   </span></div>
                 <div><i class="fas fa-tint fa-fw" style={{color: '#868B94'}}></i> <span class="ms-1"> {response.OpenWeather.main.humidity}% </span>
                 </div>
