@@ -6,7 +6,7 @@ import {
 import Card from './places/Card';
 
 export default function Home() {
-const data = null;
+const data = JSON.parse(window.localStorage.getItem('ubications'));
 const listItems = data.map(card =>
     <MDBCol sm='3'>
         <Card ubication={card[0]} response={card[1]} />
