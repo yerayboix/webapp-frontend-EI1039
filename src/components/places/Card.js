@@ -6,6 +6,7 @@ import {
   MDBCardText,
   MDBBtn
 } from 'mdb-react-ui-kit';
+import MoreInfo from './MoreInfo';
 
 export default function Card({ubication, response}) {
 
@@ -34,7 +35,7 @@ export default function Card({ubication, response}) {
                 <img src={"http://openweathermap.org/img/wn/" + response.OpenWeather.weather[0].icon + "@2x.png"} width="100px"/>
               </div>
             </div>
-        <MDBBtn>Button</MDBBtn>
+        <MoreInfo ubication={ubication} response={response}></MoreInfo>
       </MDBCardBody>
     </MDBCard>
   );
