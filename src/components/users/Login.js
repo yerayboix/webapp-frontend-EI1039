@@ -23,13 +23,14 @@ const Login = () => {
     const onLogin = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(async(userCredential) => {
             // Signed in
             console.log(userCredential);
             const user = userCredential.user;
             console.log(user);
             window.localStorage.setItem('email', user.email);
             window.localStorage.setItem('uid', user.uid);
+            await fetchUserData(window.localStorage.getItem('uid'));
             //Este navigate es temporal
             navigate("/profile");
         })
@@ -37,6 +38,31 @@ const Login = () => {
             setErrorMessage(error.message);
         });
     }
+
+    async function fetchUserData(uid) {
+      let entries = {
+        userUID: uid,
+    };
+      await fetch("/places/all",{
+        method:'POST',
+        body: JSON.stringify(entries),
+        headers:{
+            'Content-type':'application/json'
+        },
+    }).then(res=>res.json())
+    .catch(error => 
+        console.error('Error:',error)
+        )
+    .then((response)=>{
+        if(response.mssg === 'Success'){
+            window.localStorage.setItem('ubications', JSON.stringify(response.data));
+        }
+        else{
+            console.log(response.mssg);
+        }
+    });
+    }
+    
  
     return(
         <>
