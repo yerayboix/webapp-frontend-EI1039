@@ -18,7 +18,7 @@ export default function MoreInfo({ubication, response}) {
   return (
 
     <>
-    <MDBBtn onClick={toggleShow}>Mas informacion</MDBBtn>
+    <MDBBtn style={{left: '50%', transform: 'translateX(-50%)', width: '100%'}} onClick={toggleShow}>Mas informacion</MDBBtn>
       <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
         <MDBModalDialog size="xl" centered>
           <MDBModalContent>

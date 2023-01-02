@@ -31,11 +31,13 @@ export default function Card({ubication, response}) {
                 <div><i class="fas fa-tint fa-fw" style={{color: '#868B94'}}></i> <span class="ms-1"> {response.OpenWeather.main.humidity}% </span>
                 </div>
               </div>
-              <div>
+              <div style={{boxShadow: 'rgb(154 97 109 / 50%) 0px 1px 7px 5px', borderRadius: '99999px', backgroundColor: 'rgb(154 97 109 / 90%)'}}>
                 <img src={"http://openweathermap.org/img/wn/" + response.OpenWeather.weather[0].icon + "@2x.png"} width="100px"/>
               </div>
             </div>
-        <MoreInfo ubication={ubication} response={response}></MoreInfo>
+            <div className='justify-content-center align-items-center' style={{marginTop: '1.5em'}}>
+              <MoreInfo ubication={ubication} response={response}></MoreInfo>
+            </div>
       </MDBCardBody>
     </MDBCard>
   );
