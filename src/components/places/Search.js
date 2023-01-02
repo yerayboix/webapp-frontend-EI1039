@@ -69,7 +69,6 @@ const Search = () => {
     }
 
     const handleAdd = async (place) =>{
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         let coordinates = [parseFloat(place.lon).toFixed(2), parseFloat(place.lat).toFixed(2)];
         let name = place.city;
         const entries = {
