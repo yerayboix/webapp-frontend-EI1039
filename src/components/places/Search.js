@@ -26,7 +26,6 @@ import Footer from '../body/Footer';
  
 const Search = () => {
 
-    console.log(window.localStorage);
     const [staticModal, setStaticModal] = useState(false);
     const toggleShow = () => setStaticModal(!staticModal);
     const navigate = useNavigate();
@@ -37,6 +36,8 @@ const Search = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [user, setUser] = useState(window.localStorage.getItem('email'));
     const [userUID, setUserUID] = useState(window.localStorage.getItem('uid'));
+    const data = JSON.parse(window.localStorage.getItem('ubications'));
+    console.log(data)
     
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -91,6 +92,10 @@ const Search = () => {
             if(response.mssg === 'Success'){
                 setSearchResults([]);
                 console.log("added");
+                let data = JSON.parse(window.localStorage.getItem('ubications'));
+                data.push([response.place, response.apiData])
+                window.localStorage.setItem('ubications', JSON.stringify(data));
+                console.log(JSON.parse(window.localStorage.getItem('ubications')))
                 //Hacer algo no se front
             }else{
                 setErrorMessage(response.mssg);

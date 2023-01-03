@@ -17,13 +17,16 @@ export default function MoreInfo({ubication, response}) {
   const [basicModal, setBasicModal] = useState(false);
 
   const toggleShow = () => setBasicModal(!basicModal);
+      const data = JSON.parse(window.localStorage.getItem('ubications'));
+    console.log(data)
 
   const listTM = response.Ticketmaster.map((ticket) => {
     return <>
+    {console.log(ticket)}
               <h6 className="text-center">{ticket.name} - {ticket.dates.start.localDate} </h6>
               <MDBModalBody >
                 <MDBRow >
-                  <MDBCol className='col-md-8'><p>Rango de precios standar: {ticket.priceRanges[0].min}-{ticket.priceRanges[0].max}€</p>
+                  <MDBCol className='col-md-8'>{ticket.hasOwnProperty('priceRanges') &&  <p>Rango de precios standar: {ticket.priceRanges[0].min}-{ticket.priceRanges[0].max}€</p>}
                 <a target="_blank" rel="noopener noreferrer" href={ticket.url}>Compra tus entradas aqui!</a></MDBCol>
                   <MDBCol className='ms-auto col-example' centered><img src={ticket.images[0].url} width="200px"/></MDBCol>
                 </MDBRow>
