@@ -27,9 +27,11 @@ const listItems = data.map((card) => {
       <div style={{paddingLeft: '1rem', paddingRight: '1rem'}}>
         <MDBRow>
             {listItems}
-            <MDBCol style={{paddingTop: '10rem'}}><MDBBtn border='dark' href='/search' centered style={{width: '5%', height: '25%'}} size='lg'  color='dark' floating tag='a'>
-            <MDBIcon style={{paddingTop: '12%'}} centered fas icon='plus' />
-            </MDBBtn></MDBCol>
+            <div className='col-sm-3' style={{display: 'flex', justifyContent: 'center', position:'relative', verticalAlign: '50%'}}>
+            <MDBBtn style={{position: 'absolute', transform: 'translate(-50%, -50%)',top: '50%', left: '50%', borderColor: 'black', backgroundColor: 'white'}} href='/search' size='lg'  color='dark' floating tag='a'>
+            <MDBIcon style={{color: 'black'}} fas icon='plus' />
+            </MDBBtn>
+            </div>
             
         </MDBRow>
       </div>
