@@ -33,7 +33,7 @@ const Profile = () => {
     useEffect(() => {
         //Funcion que comprueba si estamos logeados
         const token = localStorage.getItem('uid');
-        console.log(token)
+        // console.log(token)
         if(token == null){
             navigate('/login');
         }

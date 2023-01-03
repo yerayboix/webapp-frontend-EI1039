@@ -69,10 +69,10 @@ const listTM = ticket.map((ticket) => {
 
   });
 
-  const TicketHead = ticket.length !== 0 ? <MDBModalHeader className='mb-4' >
-  <MDBModalTitle >Próximos eventos</MDBModalTitle></MDBModalHeader> : "";
-  const CurrentHead = response.Currents.length !== 0 ? <MDBModalHeader className='mb-4' >
-  <MDBModalTitle >Últimas noticias</MDBModalTitle></MDBModalHeader> : "";
+  const TicketHead = ticket.length !== 0 ? <MDBModalHeader key={ubication.name.toString() + '_modalTicketHeaderKey'} className='mb-4' >
+  <MDBModalTitle key={ubication.name.toString() + '_proximosEventosTitleKey'} >Próximos eventos</MDBModalTitle></MDBModalHeader> : "";
+  const CurrentHead = response.Currents.length !== 0 ? <MDBModalHeader key={ubication.name.toString() + '_modalNewsHeaderKey'} className='mb-4' >
+  <MDBModalTitle key={ubication.name.toString() + '_ultimasNoticiasTitleKey'}>Últimas noticias</MDBModalTitle></MDBModalHeader> : "";
 
 
   
@@ -82,14 +82,14 @@ return (
 
     <>
     <MDBBtn style={{left: '50%', transform: 'translateX(-50%)', width: '100%'}} onClick={toggleShow}>Mas informacion</MDBBtn>
-      <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1' >
-        <MDBModalDialog size="lg" centered>
-          <MDBModalContent>
-          <MDBModalHeader >
-                <MDBModalTitle >Más información sobre {ubication.name}</MDBModalTitle>
-                <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
+      <MDBModal key={ubication.name.toString() + '_modalKey'} show={basicModal} setShow={setBasicModal} tabIndex='-1' >
+        <MDBModalDialog key={ubication.name.toString() + '_modalDialogKey'} size="lg" centered>
+          <MDBModalContent key={ubication.name.toString() + '_modalContentKey'}>
+          <MDBModalHeader key={ubication.name.toString() + '_modalHeaderKey'}>
+                <MDBModalTitle key={ubication.name.toString() + '_modalTitleKey'}>Más información sobre {ubication.name}</MDBModalTitle>
+                <MDBBtn key={ubication.name.toString() + '_modalBtnKey'} className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
             </MDBModalHeader>
-            <MDBModalBody>
+            <MDBModalBody key={ubication.name.toString() + '_modalBody'}>
               
             {TicketHead}
             {listTM}
