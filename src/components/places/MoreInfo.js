@@ -37,8 +37,7 @@ export default function MoreInfo({ubication, response}) {
 
   const listCU = response.Currents.map((current) => {
     return <>
-    {console.log(current)}
-                <h6 className="text-center">{current.title}</h6>
+                <h6 className="text-center">"{current.title}"</h6>
               <MDBModalBody >                
               <MDBRow >
                 <MDBCol className='col-md-12'>{current.description}</MDBCol>
@@ -46,15 +45,16 @@ export default function MoreInfo({ubication, response}) {
               <MDBCol className='mt-2'>
                 <MDBCol className='col-md-6'>{"Autoría: " + current.author}</MDBCol>
                 <MDBCol className='ms-auto col-example'>{"Fecha: " + current.published.split("+")[0]}</MDBCol></MDBCol>
+                <MDBCol className='col-md-6'><a href={current.url}>Link a la noticia</a></MDBCol>
               </MDBModalBody>
       <hr />
     </>
   });
 
   const TicketHead = response.Ticketmaster.length !== 0 ? <MDBModalHeader className='mb-4' >
-  <MDBModalTitle >TicketMaster</MDBModalTitle></MDBModalHeader> : "";
+  <MDBModalTitle >Eventos</MDBModalTitle></MDBModalHeader> : "";
   const CurrentHead = response.Currents.length !== 0 ? <MDBModalHeader className='mb-4' >
-  <MDBModalTitle >Currents</MDBModalTitle></MDBModalHeader> : "";
+  <MDBModalTitle >Últimas noticias</MDBModalTitle></MDBModalHeader> : "";
 
   
 
@@ -67,7 +67,7 @@ export default function MoreInfo({ubication, response}) {
         <MDBModalDialog size="lg" centered>
           <MDBModalContent>
           <MDBModalHeader >
-                <MDBModalTitle >Más sobre {ubication.name}</MDBModalTitle>
+                <MDBModalTitle >Más información sobre {ubication.name}</MDBModalTitle>
                 <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
             </MDBModalHeader>
             <MDBModalBody>

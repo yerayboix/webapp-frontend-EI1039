@@ -28,12 +28,12 @@ export default function Footer() {
             Yeray Boix Torner
             </MDBCol>
             <MDBCol size='4'>
-            Pablo Gozalbo Pepe
+            Pablo Gozalbo Solsona
             </MDBCol>
         </MDBRow>
         <MDBRow evenly center>
             <MDBCol size='4'>
-            Alvaro Morales Paco
+            Alvaro Morales Guevara
             </MDBCol>
             <MDBCol size='4'>
             Marc Navarro Gaya
