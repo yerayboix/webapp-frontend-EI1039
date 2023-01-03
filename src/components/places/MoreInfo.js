@@ -20,7 +20,7 @@ export default function MoreInfo({ubication, response}) {
   console.log(ubication);
   console.log(response.TicketMaster);
 
-  const listTM = response.Ticketmaster.map((ticket) => {
+const listTM = response.Ticketmaster.map((ticket) => {
     return <>
     {console.log(ticket)}
               <h6 className="text-center">{ticket.name} - {ticket.dates.start.localDate} </h6>
@@ -59,10 +59,11 @@ export default function MoreInfo({ubication, response}) {
   const CurrentHead = response.Currents.length !== 0 ? <MDBModalHeader className='mb-4' >
   <MDBModalTitle >Últimas noticias</MDBModalTitle></MDBModalHeader> : "";
 
+
   
 
 
-  return (
+return (
 
     <>
     <MDBBtn style={{left: '50%', transform: 'translateX(-50%)', width: '100%'}} onClick={toggleShow}>Mas informacion</MDBBtn>
@@ -83,7 +84,7 @@ export default function MoreInfo({ubication, response}) {
 
        
 
-          </MDBModalContent>
+</MDBModalContent>
         </MDBModalDialog>
       </MDBModal>
     </>
