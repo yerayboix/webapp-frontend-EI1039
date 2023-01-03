@@ -14,15 +14,18 @@ import {
 } from 'mdb-react-ui-kit';
 
 export default function MoreInfo({ubication, response}) {
-  const [basicModal, setBasicModal] = useState(false);
+const [basicModal, setBasicModal] = useState(false);
 
-  const toggleShow = () => setBasicModal(!basicModal);
-  console.log(ubication);
-  console.log(response.TicketMaster);
+const toggleShow = () => setBasicModal(!basicModal);
 
-const listTM = response.Ticketmaster.map((ticket) => {
+let ticket = []
+if(JSON.stringify(response.Ticketmaster) === '{}'){
+  ticket = []
+}
+else ticket = response.Ticketmaster
+
+const listTM = ticket.map((ticket) => {
     return <>
-    {console.log(ticket)}
               <h6 className="text-center">{ticket.name} - {ticket.dates.start.localDate} </h6>
               <MDBModalBody >
                 <MDBRow >
@@ -54,7 +57,7 @@ const listTM = response.Ticketmaster.map((ticket) => {
     </>
   });
 
-  const TicketHead = response.Ticketmaster.length !== 0 ? <MDBModalHeader className='mb-4' >
+  const TicketHead = ticket.length !== 0 ? <MDBModalHeader className='mb-4' >
   <MDBModalTitle >Próximos eventos</MDBModalTitle></MDBModalHeader> : "";
   const CurrentHead = response.Currents.length !== 0 ? <MDBModalHeader className='mb-4' >
   <MDBModalTitle >Últimas noticias</MDBModalTitle></MDBModalHeader> : "";
