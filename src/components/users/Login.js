@@ -78,14 +78,16 @@ const Login = () => {
               <h2 className="h1 fw-bold mb-0" style={{letterSpacing: '1px'}}>Log in</h2>
               <p className="text-grey-50 mb-3">Please enter your login and password!</p>
 
-              <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='email' type='email' onChange={(e) => setEmail(e.target.value)}  
-                                required value={email} size="lg"/>
-              <MDBInput wrapperClass='mb-4 w-100' label='Password' id='password' type='password' onChange={(e) => setPassword(e.target.value)}
-                                required value={password} size="lg"/>
+              <form onSubmit={onLogin}>
+                <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='email' type='email' onChange={(e) => setEmail(e.target.value)}  
+                                  required value={email} size="lg"/>
+                <MDBInput wrapperClass='mb-4 w-100' label='Password' id='password' type='password' onChange={(e) => setPassword(e.target.value)}
+                                  required value={password} size="lg"/>
 
-              <MDBBtn type='submit' onClick={onLogin} className="btn btn-dark btn-lg btn-block" size='lg' >
-                Log in
-              </MDBBtn>
+                <MDBBtn type='submit' className="btn btn-dark btn-lg btn-block" size='lg' >
+                  Log in
+                </MDBBtn>
+              </form>
 
               {errorMessage && <div className="error"> {errorMessage} </div>} 
               <hr className="my-4" />
