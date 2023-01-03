@@ -28,7 +28,7 @@ useEffect(() => {
 const data = JSON.parse(window.localStorage.getItem('ubications')) ? JSON.parse(window.localStorage.getItem('ubications')) : [];
 
 const listItems = data.map((card) => {
-  return <MDBCol sm='3'>
+  return <MDBCol sm='12' md='6' lg='4'>
     <Card  ubication={card[0]} response={card[1]} />
   </MDBCol>
 });
@@ -37,7 +37,7 @@ const listItems = data.map((card) => {
     <>
     <Header/>
     <section style={{backgroundColor: '#9A616D', flex: 1}}>
-      <MDBContainer>
+      <MDBContainer fluid>
       <h1  style={{color: 'white', textAlign: 'center', paddingTop: '1rem'}}>Mis ubicaciones</h1>
       <div style={{paddingLeft: '1rem', paddingRight: '1rem'}}>
         <MDBRow>
