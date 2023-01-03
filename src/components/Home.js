@@ -28,8 +28,8 @@ useEffect(() => {
 const data = JSON.parse(window.localStorage.getItem('ubications')) ? JSON.parse(window.localStorage.getItem('ubications')) : [];
 
 const listItems = data.map((card) => {
-  return <MDBCol sm='12' md='6' lg='4'>
-    <Card  ubication={card[0]} response={card[1]} />
+  return <MDBCol key={card[0].name.toString()} sm='12' md='6' lg='4'>
+    <Card key={card[0].lat.toString() + '_' + card[0].lon.toString()} ubication={card[0]} response={card[1]} />
   </MDBCol>
 });
 

@@ -37,7 +37,7 @@ const Search = () => {
     const [user, setUser] = useState(window.localStorage.getItem('email'));
     const [userUID, setUserUID] = useState(window.localStorage.getItem('uid'));
     const data = JSON.parse(window.localStorage.getItem('ubications'));
-    console.log(data)
+    // console.log(data)
     
     const handleSearch = async (e) => {
         e.preventDefault();

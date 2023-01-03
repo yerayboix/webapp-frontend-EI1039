@@ -63,7 +63,7 @@ export default function ConfigUbication({ubication, response}) {
     .catch(error => console.log('Error:',error))
     .then(response =>{
         if(response.mssg === 'Success'){
-            console.log("Placed removed");
+            console.log("Place removed");
             window.localStorage.setItem('ubications', JSON.stringify(newLocalData));
             //Cerramos el modal y vamos a pagina inicio
             toggleShow();
