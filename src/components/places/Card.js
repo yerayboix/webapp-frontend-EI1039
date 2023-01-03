@@ -16,7 +16,7 @@ export default function Card({ubication, response}) {
     <MDBCard border='dark' className='m-4'>
       <MDBCardBody>
       <div class="d-flex">
-              <h6 class="flex-grow-1">{ubication.name}</h6>
+              <h6 class="flex-grow-1">{ubication.alias ? ubication.alias : ubication.name}</h6>
             </div>
 
             <div class="d-flex flex-column text-center mt-3 mb-4">
