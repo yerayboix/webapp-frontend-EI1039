@@ -85,7 +85,6 @@ const Login = () => {
                     <form onSubmit={onLogin}>
                       <MDBInput wrapperClass='mb-4 w-100' label='Email' id='email' type='email' onChange={(e) => setEmail(e.target.value)} required value={email} size="lg"/>
                       <MDBInput wrapperClass='mb-4 w-100' label='Contraseña' id='password' type='password' onChange={(e) => setPassword(e.target.value)} required value={password} size="lg"/>
-
                     
                       {!isLoading ? (
                         <MDBBtn type='submit' className="btn btn-dark btn-lg btn-block" size='lg' >
