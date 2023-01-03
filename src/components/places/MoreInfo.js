@@ -24,7 +24,7 @@ export default function MoreInfo({ubication, response}) {
               <MDBModalBody >
                 <MDBRow >
                   <MDBCol className='col-md-8'><p>Rango de precios standar: {ticket.priceRanges[0].min}-{ticket.priceRanges[0].max}€</p>
-                <p>Link: <a href='{ticket.url}'>{ticket.url} </a></p></MDBCol>
+                <a target="_blank" rel="noopener noreferrer" href={ticket.url}>Compra tus entradas aqui!</a></MDBCol>
                   <MDBCol className='ms-auto col-example' centered><img src={ticket.images[0].url} width="200px"/></MDBCol>
                 </MDBRow>
                 
@@ -45,7 +45,7 @@ export default function MoreInfo({ubication, response}) {
               <MDBCol className='mt-2'>
                 <MDBCol className='col-md-6'>{"Autoría: " + current.author}</MDBCol>
                 <MDBCol className='ms-auto col-example'>{"Fecha: " + current.published.split("+")[0]}</MDBCol></MDBCol>
-                <MDBCol className='col-md-6'><a href={current.url}>Link a la noticia</a></MDBCol>
+                <MDBCol className='col-md-6'><a target="_blank" rel="noopener noreferrer" href={current.url}>Link a la noticia</a></MDBCol>
               </MDBModalBody>
       <hr />
     </>
