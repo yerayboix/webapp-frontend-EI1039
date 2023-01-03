@@ -9,14 +9,13 @@ import Footer from './body/Footer';
 
 export default function Home() {
 const data = JSON.parse(window.localStorage.getItem('ubications'));
+
 const listItems = data.map((card) => {
-  let aux1 = card[0];
-  let aux2 = card[1];
   return <MDBCol sm='3'>
-    <Card  ubication={aux1} response={aux2} />
+    <Card  ubication={card[0]} response={card[1]} />
   </MDBCol>
-}
-  );
+});
+
   return (
     <>
     <Header/>

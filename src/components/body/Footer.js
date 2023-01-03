@@ -36,7 +36,7 @@ export default function Footer() {
             Alvaro Morales Paco
             </MDBCol>
             <MDBCol size='4'>
-            Marc Nvarro Gaya
+            Marc Navarro Gaya
             </MDBCol>
         </MDBRow>
         </section>
