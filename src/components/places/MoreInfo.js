@@ -52,7 +52,7 @@ export default function MoreInfo({ubication, response}) {
   });
 
   const TicketHead = response.Ticketmaster.length !== 0 ? <MDBModalHeader className='mb-4' >
-  <MDBModalTitle >Eventos</MDBModalTitle></MDBModalHeader> : "";
+  <MDBModalTitle >Próximos eventos</MDBModalTitle></MDBModalHeader> : "";
   const CurrentHead = response.Currents.length !== 0 ? <MDBModalHeader className='mb-4' >
   <MDBModalTitle >Últimas noticias</MDBModalTitle></MDBModalHeader> : "";
 
