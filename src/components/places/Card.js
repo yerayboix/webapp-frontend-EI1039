@@ -9,6 +9,7 @@ import {
 } from 'mdb-react-ui-kit';
 import MoreInfo from './MoreInfo';
 import ConfigUbication from './ConfigUbication';
+import EditAlias from './EditAlias';
 
 export default function Card({ubication, response}) {
 
@@ -16,9 +17,10 @@ export default function Card({ubication, response}) {
     <MDBCard border='dark' className='m-4'>
       <MDBCardBody>
       <div class="d-flex">
-              <h6 class="flex-grow-1">{ubication.alias ? ubication.alias : ubication.name}
-              <ConfigUbication ubication={ubication} response={response}/>
+              <h6 >{ubication.alias ? ubication.alias : ubication.name}
               </h6>
+              <EditAlias ubication={ubication} response={response}/>
+              <ConfigUbication ubication={ubication} response={response}/>
             </div>
 
             <div class="d-flex flex-column text-center mt-3 mb-4">
