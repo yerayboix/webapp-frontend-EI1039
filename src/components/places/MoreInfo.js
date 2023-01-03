@@ -20,7 +20,7 @@ export default function MoreInfo({ubication, response}) {
 
   const listTM = response.Ticketmaster.map((ticket) => {
     return <>
-              <h6 style={{margingLeft: '10px'}}>{ticket.name} - {ticket.dates.start.localDate} </h6>
+              <h6 className="text-center">{ticket.name} - {ticket.dates.start.localDate} </h6>
               <MDBModalBody >
                 <MDBRow >
                   <MDBCol className='col-md-8'><p>Rango de precios standar: {ticket.priceRanges[0].min}-{ticket.priceRanges[0].max}€</p>
@@ -38,7 +38,7 @@ export default function MoreInfo({ubication, response}) {
   const listCU = response.Currents.map((current) => {
     return <>
     {console.log(current)}
-                <h6>{current.title}</h6>
+                <h6 className="text-center">{current.title}</h6>
               <MDBModalBody >                
               <MDBRow >
                 <MDBCol className='col-md-12'>{current.description}</MDBCol>
