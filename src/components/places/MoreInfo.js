@@ -17,8 +17,8 @@ export default function MoreInfo({ubication, response}) {
   const [basicModal, setBasicModal] = useState(false);
 
   const toggleShow = () => setBasicModal(!basicModal);
-      const data = JSON.parse(window.localStorage.getItem('ubications'));
-    console.log(data)
+  console.log(ubication);
+  console.log(response.TicketMaster);
 
   const listTM = response.Ticketmaster.map((ticket) => {
     return <>
