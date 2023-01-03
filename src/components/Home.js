@@ -36,7 +36,7 @@ const listItems = data.map((card) => {
   return (
     <>
     <Header/>
-    <section style={{backgroundColor: '#9A616D', flex: 1}}>
+    <section className='bg-gradien' style={{backgroundColor: '#9A616D', flex: 1}}>
       <MDBContainer fluid>
       <h1  style={{color: 'white', textAlign: 'center', paddingTop: '1rem'}}>Mis ubicaciones</h1>
       <div style={{paddingLeft: '1rem', paddingRight: '1rem'}}>

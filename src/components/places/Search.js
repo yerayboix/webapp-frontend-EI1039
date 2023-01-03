@@ -109,7 +109,7 @@ const Search = () => {
     return(
         <>
         <Header></Header>
-        <div className="Search vh-100 pt-4" style={{backgroundColor: '#9A616D'}}>
+        <div className="Search vh-100 pt-4 bg-gradient" style={{backgroundColor: '#9A616D'}}>
            <MDBContainer fluid>
                 <MDBCard className='bg-white mx-auto ' style={{borderRadius: '1rem'}}>
                     <MDBCardBody className='p-5  d-flex flex-column'>
@@ -119,7 +119,7 @@ const Search = () => {
                                 <MDBInput wrapperClass='mb-4 w-100' label='Search place...' id='searchBar' type='text'name='searchBar' size="lg" onChange={(e)=>setSearchTerm(e.target.value)}/>
                             </MDBCol>
                             <MDBCol>
-                                <select  className='mb-4 w-100' value={searchType} onChange={(e)=>{setSearchType(e.target.value); setSearchResults([])}}>
+                                <select  className='mb-4 w-100 py-2' value={searchType} onChange={(e)=>{setSearchType(e.target.value); setSearchResults([])}}>
                                     <option value="P">Place</option>
                                     <option value="C">Coordinates</option>
                                 </select>

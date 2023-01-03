@@ -5,7 +5,7 @@ import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { useEffect } from 'react';
 import Header from '../body/Header';
-import { MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBRow, MDBBtn } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBRow, MDBBtn, MDBSwitch } from 'mdb-react-ui-kit';
 
 
 
@@ -64,7 +64,22 @@ const Profile = () => {
     }
 
     const handleEliminateAccount = () => {
-
+        
+        let obj = {userUID : localUid}
+        fetch("/user/delete",{
+            method:'POST',
+            body: JSON.stringify(obj),
+            headers:{
+                'Content-type':'application/json'
+            },
+        }).then(res=>res.json()).catch(e => 
+            console.error('Error', e)).then((response) => {
+                if(response.mssg == 'Success') {
+                    navigate("/login");
+                }else {
+                    console.log(response);
+                }
+            });
     }
 
     const handleChangePaswd = () =>{
@@ -84,10 +99,19 @@ const Profile = () => {
                         <h2 className="h1 fw-bold mb-0" style={{letterSpacing: '1px'}}>Mi perfil:</h2>
                         <p className="text-grey-50 mb-3">Correo electronico: {user}</p>
                         <p className="text-grey-50 mb-3">Servicios por defecto:</p>
-                        <p> 
-                        Tiempo: {userServices && (userServices[0].toString())} <br></br>
-                        Eventos: {userServices && (userServices[1].toString())} <br></br>
-                        Noticias: {userServices && (userServices[2].toString())} <br></br>
+                        <p>     
+                        <MDBRow>
+                            <MDBCol>
+                                {userServices && <MDBSwitch checked={userServices[0]} disabled label='Tiempo' />}
+                            </MDBCol>
+                            <MDBCol>
+                                {userServices && <MDBSwitch checked={userServices[1]} disabled label='Eventos' />}
+                            </MDBCol>
+                            <MDBCol>
+                                {userServices && <MDBSwitch checked={userServices[2]} disabled label='Noticias' />} 
+                            </MDBCol>
+                        </MDBRow>   
+                            
                         </p>
                         <div className='justify-content-center align-items-center' style={{width: '100%'}}>
                         <MDBBtn type='submit' onClick={handleChangePaswd} className="btn btn-warning btn-lg btn-block " size='lg'  style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)' }} >
