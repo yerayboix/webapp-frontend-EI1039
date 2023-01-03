@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MDBRow,
   MDBCol,
@@ -9,9 +9,23 @@ import {
 import Card from './places/Card';
 import Header from './body/Header';
 import Footer from './body/Footer';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
-const data = JSON.parse(window.localStorage.getItem('ubications'));
+const navigate = useNavigate();
+const localUser = window.localStorage.getItem('email');
+const localUid = window.localStorage.getItem('uid');
+const [user, setUser] = useState(localUser);
+const [userUID, setUserUID] = useState(localUid);
+
+
+useEffect(() => {
+   //Funcion que comprueba si estamos logeados
+   if(localUid == null){
+       navigate('/login');
+   }
+});
+const data = JSON.parse(window.localStorage.getItem('ubications')) ? JSON.parse(window.localStorage.getItem('ubications')) : [];
 
 const listItems = data.map((card) => {
   return <MDBCol sm='3'>
