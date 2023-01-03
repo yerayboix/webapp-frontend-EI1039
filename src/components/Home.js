@@ -3,7 +3,8 @@ import {
   MDBRow,
   MDBCol,
   MDBIcon,
-  MDBBtn
+  MDBBtn,
+  MDBContainer
 } from 'mdb-react-ui-kit';
 import Card from './places/Card';
 import Header from './body/Header';
@@ -26,9 +27,10 @@ const listItems = data.map((card) => {
       <div style={{paddingLeft: '1rem', paddingRight: '1rem'}}>
         <MDBRow>
             {listItems}
-            <MDBBtn size='lg'  color='dark' floating tag='a'>
-            <MDBIcon  fas icon='plus' />
-            </MDBBtn>
+            <MDBCol style={{paddingTop: '10rem'}}><MDBBtn border='dark' href='/search' centered style={{width: '5%', height: '25%'}} size='lg'  color='dark' floating tag='a'>
+            <MDBIcon style={{paddingTop: '12%'}} centered fas icon='plus' />
+            </MDBBtn></MDBCol>
+            
         </MDBRow>
       </div>
     </section>

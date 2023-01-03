@@ -21,6 +21,8 @@ import {
     MDBModalBody,
     MDBModalFooter,
 } from 'mdb-react-ui-kit';
+import Header from '../body/Header';
+import Footer from '../body/Footer';
  
 const Search = () => {
 
@@ -99,6 +101,8 @@ const Search = () => {
 
     
     return(
+        <>
+        <Header></Header>
         <div className="Search vh-100 pt-4" style={{backgroundColor: '#9A616D'}}>
            <MDBContainer fluid>
                 <MDBCard className='bg-white mx-auto ' style={{borderRadius: '1rem'}}>
@@ -178,6 +182,8 @@ const Search = () => {
             {/* FINAL POPUP DE QUE HAS AÑADIDO LA UBICACION */}
             </MDBContainer>
         </div>
+        <Footer></Footer>
+        </>
     )
 }
  
