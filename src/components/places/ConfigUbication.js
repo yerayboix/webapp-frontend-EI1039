@@ -153,7 +153,7 @@ export default function ConfigUbication({ubication, response}) {
         <MDBModalDialog size="md" centered>
           <MDBModalContent>
           <MDBModalHeader >
-                <MDBModalTitle >Configuración {ubication.name}</MDBModalTitle>
+                <MDBModalTitle >Configuración {ubication.alias ? ubication.alias + ' (' + ubication.name + ')' : ubication.name}</MDBModalTitle>
                 <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
             </MDBModalHeader>
             <MDBModalBody>
