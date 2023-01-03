@@ -13,7 +13,7 @@ export default function Card({ubication, response}) {
   
 
   return (
-    <MDBCard className='m-4'>
+    <MDBCard border='dark' className='m-4'>
       <MDBCardBody>
       <div class="d-flex">
               <h6 class="flex-grow-1">{ubication.name}</h6>

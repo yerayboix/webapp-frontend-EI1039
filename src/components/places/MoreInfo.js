@@ -43,9 +43,9 @@ export default function MoreInfo({ubication, response}) {
                 <MDBCol className='col-md-12'>{current.description}</MDBCol>
               </MDBRow>
               <MDBCol className='mt-2'>
-                <MDBCol className='col-md-6'>{"Autoría: " + current.author}</MDBCol>
-                <MDBCol className='ms-auto col-example'>{"Fecha: " + current.published.split("+")[0]}</MDBCol></MDBCol>
-                <MDBCol className='col-md-6'><a target="_blank" rel="noopener noreferrer" href={current.url}>Link a la noticia</a></MDBCol>
+                <MDBCol className='col-md-6' style={{paddingTop: '1rem'}}><figcaption class="blockquote-footer">{"Autor: " + current.author}</figcaption></MDBCol>
+                <MDBCol className='ms-auto col-example'><figcaption class="blockquote-footer">{"Fecha: " + current.published.split("+")[0]}</figcaption></MDBCol></MDBCol>
+                <MDBCol className='col-md-6'><figcaption class="blockquote-footer"><a target="_blank" rel="noopener noreferrer" href={current.url}>Link a la noticia</a></figcaption></MDBCol>
               </MDBModalBody>
       <hr />
     </>
