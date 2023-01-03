@@ -12,9 +12,6 @@ import ConfigUbication from './ConfigUbication';
 
 export default function Card({ubication, response}) {
 
-
-  
-
   return (
     <MDBCard border='dark' className='m-4'>
       <MDBCardBody>

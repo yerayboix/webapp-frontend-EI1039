@@ -91,11 +91,12 @@ const Search = () => {
         .then(response =>{
             if(response.mssg === 'Success'){
                 setSearchResults([]);
-                console.log("added");
+                console.log("Place added");
                 let data = JSON.parse(window.localStorage.getItem('ubications'));
                 data.push([response.place, response.apiData])
                 window.localStorage.setItem('ubications', JSON.stringify(data));
-                console.log(JSON.parse(window.localStorage.getItem('ubications')))
+                navigate('/')
+                //console.log(JSON.parse(window.localStorage.getItem('ubications')))
                 //Hacer algo no se front
             }else{
                 setErrorMessage(response.mssg);
@@ -179,7 +180,6 @@ const Search = () => {
                             <h3>Ubicacion añadida con éxito.</h3>
                         </MDBModalBody>
                         <MDBModalFooter style={{display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-                        <MDBBtn className='center' >Volver a la página de inicio</MDBBtn>
                         </MDBModalFooter>
                     </MDBModalContent>
                     </MDBModalDialog>

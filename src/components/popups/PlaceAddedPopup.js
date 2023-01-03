@@ -27,7 +27,6 @@ const PlaceAddedPopup = () => {
                 <h3>Ubicacion añadida con éxito.</h3>
             </MDBModalBody>
             <MDBModalFooter style={{display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-              <MDBBtn href='/' className='center'><a href='/'>Volver a la página de inicio</a></MDBBtn>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>
