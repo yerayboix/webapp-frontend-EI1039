@@ -20,7 +20,7 @@ const listItems = data.map((card) => {
     <>
     <Header/>
     <section style={{backgroundColor: '#9A616D', flex: 1}}>
-      <h1 style={{color: 'white', textAlign: 'center'}}>Mis ubicaciones</h1>
+      <h1 style={{color: 'white', textAlign: 'center', paddingTop: '1rem'}}>Mis ubicaciones</h1>
       <div style={{paddingLeft: '1rem', paddingRight: '1rem'}}>
         <MDBRow>
             {listItems}
