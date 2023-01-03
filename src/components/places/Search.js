@@ -173,9 +173,6 @@ const Search = () => {
                             <MDBModal staticBackdrop tabIndex='-1' show={staticModal} setShow={setStaticModal}>
                     <MDBModalDialog>
                     <MDBModalContent>
-                        <MDBModalHeader>
-                        <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
-                        </MDBModalHeader>
                         <MDBModalBody style={{display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
                             <h3>Ubicacion añadida con éxito.</h3>
                         </MDBModalBody>

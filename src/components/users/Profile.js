@@ -10,7 +10,6 @@ import { MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBRow, MDBBtn, MDBSwitch }
 
 
 const Profile = () => {
-    console.log(window.localStorage)
     const navigate = useNavigate();
     const localUser = window.localStorage.getItem('email');
     const localUid = window.localStorage.getItem('uid');
@@ -18,7 +17,19 @@ const Profile = () => {
     const [userUID, setUserUID] = useState(localUid);
     const [errorMessage, setErrorMessage] = useState('');
     const [userServices, setUserServices] = useState(null);
+    const [eventos, setEventos] = useState(false);
+    const [noticias, setNoticias] = useState(false);
     
+    
+
+  const handleTicketSwitch = () => {
+    setEventos(!eventos);
+    console.log("HaEve" + eventos)
+  }
+  const handleCurrentSwitch = () => {
+    setNoticias(!noticias);
+    console.log("HaNot" + noticias)
+  }
     useEffect(() => {
         //Funcion que comprueba si estamos logeados
         const token = localStorage.getItem('uid');
@@ -43,6 +54,8 @@ const Profile = () => {
         .then((response)=>{
             if(response.servicesByDefault.length === 3){
                 setUserServices(response.servicesByDefault);
+                setEventos(response.servicesByDefault[2])
+                setNoticias(response.servicesByDefault[1])
             }
             else{
                 setErrorMessage(response.mssg);
@@ -86,6 +99,30 @@ const Profile = () => {
         navigate("/changepswd")
     }
 
+    const handleChangeDefault = () =>{
+        let obj = {userUID : localUid, weatherService : null, newsService : noticias, eventsService : eventos}
+        
+        console.log("BotEve" + eventos)
+        console.log("BotNot" + noticias)
+
+        fetch("services/default",{
+            method: 'POST',
+            body: JSON.stringify(obj),
+            headers:{
+                'Content-type':'application/json'
+            },
+        }).then(res=>res.json()).catch(e => 
+            console.error('Error', e)).then((response) => {
+                if(response.mssg == 'Success') {
+                    console.log(response);
+                }else {
+                    console.log(response);
+                }
+            });
+    }
+
+    
+
     return(
         
         <>
@@ -101,17 +138,18 @@ const Profile = () => {
                         <p className="text-grey-50 mb-3">Servicios por defecto:</p>
                         <p>     
                         <MDBRow>
+                            <h6>Servicios por defecto al agregar ubicaciones</h6>
                             <MDBCol>
-                                {userServices && <MDBSwitch checked={userServices[0]} disabled label='Tiempo' />}
+                                {userServices && <MDBSwitch checked={eventos} onChange={handleTicketSwitch} label='Eventos' />}
                             </MDBCol>
                             <MDBCol>
-                                {userServices && <MDBSwitch checked={userServices[1]} disabled label='Eventos' />}
-                            </MDBCol>
-                            <MDBCol>
-                                {userServices && <MDBSwitch checked={userServices[2]} disabled label='Noticias' />} 
+                                {userServices && <MDBSwitch checked={noticias} onChange={handleCurrentSwitch}  label='Noticias' />} 
                             </MDBCol>
                         </MDBRow>   
                             
+                        <MDBBtn type='submit' onClick={handleChangeDefault} className="btn btn-danger btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
+                            Guardar preferencias
+                        </MDBBtn>
                         </p>
                         <div className='justify-content-center align-items-center' style={{width: '100%'}}>
                         <MDBBtn type='submit' onClick={handleChangePaswd} className="btn btn-warning btn-lg btn-block " size='lg'  style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)' }} >
