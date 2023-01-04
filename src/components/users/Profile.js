@@ -139,11 +139,10 @@ const Profile = () => {
             <MDBCol col='12'>
                 <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
                     <MDBCardBody className='p-5 w-100 d-flex flex-column'>
-                        <h2 className="h1 fw-bold mb-0" style={{letterSpacing: '1px'}}>Mi perfil:</h2>
+                        <h2 className="h1 fw-bold mb-0" style={{letterSpacing: '1px'}}>Mi perfil</h2>
                         <p className="text-grey-50 mb-3">Correo electronico: {user}</p>
-                        <p className="text-grey-50 mb-3">Servicios por defecto:</p>
                         <p>     
-                        <MDBRow>
+                        <MDBRow style={{marginTop: '1rem', marginBottom: '1rem'}}>
                             <h6>Servicios por defecto al agregar ubicaciones</h6>
                             <MDBCol>
                                 {userServices && <MDBSwitch checked={eventos} onChange={handleTicketSwitch} label='Eventos' />}
@@ -154,32 +153,32 @@ const Profile = () => {
                         </MDBRow>
 
                         {!changeDefaultsIsLoading ? (
-                            <MDBBtn type='submit' onClick={handleChangeDefault} className="btn btn-danger btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
+                            <MDBBtn type='submit' onClick={handleChangeDefault} className="btn btn-warning btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
                                 Guardar preferencias
                             </MDBBtn>
                         ) : (
-                            <MDBBtn disabled type='submit' onClick={handleChangeDefault} className="btn btn-danger btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
+                            <MDBBtn disabled type='submit' onClick={handleChangeDefault} className="btn btn-warning btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
                                 <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
                                 Loading...
                             </MDBBtn>
                         )}
                         
                         </p>
-                        <div className='justify-content-center align-items-center' style={{width: '100%'}}>
-                        <MDBBtn type='submit' onClick={handleChangePaswd} className="btn btn-warning btn-lg btn-block " size='lg'  style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)' }} >
-                            Cambiar contraseña
-                        </MDBBtn>
+                        <div className='justify-content-center align-items-center' style={{width: '100%', marginTop: '1.5rem'}}>
+                            <MDBBtn type='submit' onClick={handleChangePaswd} className="btn btn-warning btn-lg btn-block " size='lg'  style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)' }} >
+                                Cambiar contraseña
+                            </MDBBtn>
 
-                        {!deleteAccountIsLoading ? (
-                            <MDBBtn type='submit' onClick={handleEliminateAccount} className="btn btn-danger btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
-                                Eliminar cuenta
-                            </MDBBtn>
-                        ) : (
-                            <MDBBtn disabled type='submit' onClick={handleEliminateAccount} className="btn btn-danger btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
-                                <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
-                                Loading...
-                            </MDBBtn>
-                        )}
+                            {!deleteAccountIsLoading ? (
+                                <MDBBtn type='submit' onClick={handleEliminateAccount} className="btn btn-danger btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
+                                    Eliminar cuenta
+                                </MDBBtn>
+                            ) : (
+                                <MDBBtn disabled type='submit' onClick={handleEliminateAccount} className="btn btn-danger btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
+                                    <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
+                                    Loading...
+                                </MDBBtn>
+                            )}
 
                         </div>
 
