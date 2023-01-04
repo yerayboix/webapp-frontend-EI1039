@@ -34,7 +34,7 @@ const Login = () => {
             window.localStorage.setItem('uid', user.uid);
             await fetchUserData(window.localStorage.getItem('uid'));
             //Este navigate es temporal
-            navigate("/profile");
+            navigate("/");
         })
         .catch((error) => {
             setErrorMessage(error.message);
