@@ -9,6 +9,7 @@ import {
   MDBModalBody,
   MDBInput,
   MDBIcon,
+  MDBSpinner
 } from 'mdb-react-ui-kit';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +18,7 @@ export default function EditAlias({ubication, response}) {
   const navigate = useNavigate();
   const [basicModal, setBasicModal] = useState(false);
   const [currentAlias, setCurrentAlias] = useState(ubication.alias);
+  const [editAliasIsLoading, setEditAliasIsLoading] = useState('');
   
   const data = JSON.parse(window.localStorage.getItem('ubications'));
 
@@ -25,6 +27,8 @@ export default function EditAlias({ubication, response}) {
   }
 
   const handleUpdatePlaceAlias = (e) => {
+    setEditAliasIsLoading(true);
+
     e.preventDefault();
 
     //Creamos el nuevo LocalStorage que incluira el alias de la ubicacion
@@ -57,6 +61,7 @@ export default function EditAlias({ubication, response}) {
     }).then(res => res.json())
     .catch(error => console.log('Error:',error))
     .then(response =>{
+      setEditAliasIsLoading(false);
       if(response.mssg === 'Success'){
         console.log("Updated place alias");
         window.localStorage.setItem('ubications', JSON.stringify(newLocalData));
@@ -90,7 +95,15 @@ export default function EditAlias({ubication, response}) {
             <MDBModalBody>
               <MDBInput wrapperClass='mb-4 w-100' label='Alias de ubicación' id='aliasEditField' type='text' name='aliasEditField' value={currentAlias} size="lg" onChange={(e)=> {handleCurrentAlias(e.target.value);}}/>
 
-              <MDBBtn id='aliasEditFieldBtn' className="mb-2" style={{left: '50%', transform: 'translateX(-50%)', width: '100%'}} onClick={handleUpdatePlaceAlias}>Guardar y cerrar ventana</MDBBtn>
+              {!editAliasIsLoading ? (
+                <MDBBtn id='aliasEditFieldBtn' className="mb-2" style={{left: '50%', transform: 'translateX(-50%)', width: '100%'}} onClick={handleUpdatePlaceAlias}>Guardar y cerrar ventana</MDBBtn>
+              ) : (
+                <MDBBtn disabled id='aliasEditFieldBtn' className="mb-2" style={{left: '50%', transform: 'translateX(-50%)', width: '100%'}} onClick={handleUpdatePlaceAlias}>
+                  <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
+                  Loading...
+                </MDBBtn>
+              )}
+
             </MDBModalBody>
 
           </MDBModalContent>

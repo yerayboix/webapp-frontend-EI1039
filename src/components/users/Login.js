@@ -20,7 +20,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoading, setIsLoading] = useState('');
+    const [loginIsLoading, setloginIsLoading] = useState('');
 
     const onLogin = (e) => {
         e.preventDefault();
@@ -42,7 +42,7 @@ const Login = () => {
     }
 
     async function fetchUserData(uid) {
-      setIsLoading(true);
+      setloginIsLoading(true);
       let entries = {
         userUID: uid,
       };
@@ -57,7 +57,7 @@ const Login = () => {
         console.error('Error:',error)
       )
       .then((response)=>{
-        setIsLoading(false);
+        setloginIsLoading(false);
         if(response.mssg === 'Success'){
             window.localStorage.setItem('ubications', JSON.stringify(response.data));
         }
@@ -86,7 +86,7 @@ const Login = () => {
                       <MDBInput wrapperClass='mb-4 w-100' label='Email' id='email' type='email' onChange={(e) => setEmail(e.target.value)} required value={email} size="lg"/>
                       <MDBInput wrapperClass='mb-4 w-100' label='Contraseña' id='password' type='password' onChange={(e) => setPassword(e.target.value)} required value={password} size="lg"/>
                     
-                      {!isLoading ? (
+                      {!loginIsLoading ? (
                         <MDBBtn type='submit' className="btn btn-dark btn-lg btn-block" size='lg' >
                           Log in
                         </MDBBtn>

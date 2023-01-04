@@ -12,13 +12,16 @@ import {
   MDBCol,
   MDBCardBody,
   MDBIcon,
-  MDBSwitch
+  MDBSwitch,
+  MDBSpinner
 } from 'mdb-react-ui-kit';
 import { useNavigate } from 'react-router-dom';
 
 export default function ConfigUbication({ubication, response}) {
   const navigate = useNavigate();
   const [basicModal, setBasicModal] = useState(false);
+  const [deletePlaceIsLoading, setdeletePlaceIsLoading] = useState('');
+  const [changeServicesIsLoading, setchangeServicesIsLoading] = useState('');
 
   const [currentSwitch, setCurrentSwitch] = useState(ubication.services[1]);
   const [ticketSwitch, setTicketSwitch] = useState(ubication.services[2]);
@@ -37,6 +40,7 @@ export default function ConfigUbication({ubication, response}) {
 
   //Funcion para eliminar una ubicacion
   const handleEliminatePlace = (e) => {
+    setdeletePlaceIsLoading(true);
     e.preventDefault();
     //Creamos el nuevo LocalStorage sin la ubicacion que vamos a eliminar
     
@@ -52,7 +56,7 @@ export default function ConfigUbication({ubication, response}) {
     let entries = {
       userUID: window.localStorage.getItem('uid'),
       coordinates: [parseFloat(ubication.lon).toFixed(2), parseFloat(ubication.lat).toFixed(2)]
-  }
+    }
     fetch("/place/remove", {
         method: 'POST',
         body: JSON.stringify(entries),
@@ -62,21 +66,23 @@ export default function ConfigUbication({ubication, response}) {
     }).then(res => res.json())
     .catch(error => console.log('Error:',error))
     .then(response =>{
-        if(response.mssg === 'Success'){
-            console.log("Place removed");
-            window.localStorage.setItem('ubications', JSON.stringify(newLocalData));
-            //Cerramos el modal y vamos a pagina inicio
-            toggleShow();
-            navigate('/');
-            //Hacer algo no se front
-        }else{
-          console.log(response.mssg)
-        }
+      setdeletePlaceIsLoading(false);
+      if(response.mssg === 'Success'){
+        console.log("Place removed");
+        window.localStorage.setItem('ubications', JSON.stringify(newLocalData));
+        //Cerramos el modal y vamos a pagina inicio
+        toggleShow();
+        navigate('/');
+        //Hacer algo no se front
+      }else{
+        console.log(response.mssg)
+      }
     });
   }
 
   //Funcion para cambiar los servicios activos de una ubicacion
   const handleChangeServices = async (e) => {
+    setchangeServicesIsLoading(true);
     e.preventDefault();
     let entries = {
       userUID: window.localStorage.getItem('uid'),
@@ -86,8 +92,8 @@ export default function ConfigUbication({ubication, response}) {
       eventsService: ticketSwitch,
       lat: ubication.lat,
       lon: ubication.lon
-  }
-  //Fetch para cambiar los servicios de una ubicacion en base de datos
+    }
+    //Fetch para cambiar los servicios de una ubicacion en base de datos
     await fetch("/services/place", {
         method: 'POST',
         body: JSON.stringify(entries),
@@ -126,10 +132,11 @@ export default function ConfigUbication({ubication, response}) {
       body: JSON.stringify(entriesForAPIResponse),
       headers:{
           'Content-Type': 'application/json'
-          }
-  }).then(res => res.json())
-  .catch(error => console.log('Error:',error))
-  .then(response =>{
+      }
+    }).then(res => res.json())
+    .catch(error => console.log('Error:',error))
+    .then(response =>{
+      setchangeServicesIsLoading(false);
       if(response.mssg === 'Success'){
           console.log('Respuestas API obtenias con exito');
           //AAAAAAAAAAAAAAAAAA
@@ -164,10 +171,28 @@ export default function ConfigUbication({ubication, response}) {
                 <br />
                 <MDBRow>
                     <MDBCol size="6">
+
+                      {!changeServicesIsLoading ? (
                         <MDBBtn className="mb-2" style={{left: '50%', transform: 'translateX(-50%)', width: '100%'}} onClick={handleChangeServices}>Guardar Cambios</MDBBtn>
+                      ) : (
+                        <MDBBtn disabled className="mb-2" style={{left: '50%', transform: 'translateX(-50%)', width: '100%'}} onClick={handleChangeServices}>
+                          <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
+                          Loading...
+                        </MDBBtn>
+                      )}
+
                     </MDBCol>                    
                     <MDBCol size="6">
+
+                      {!deletePlaceIsLoading ? (
                         <MDBBtn style={{left: '50%', transform: 'translateX(-50%)', width: '100%'}} color= 'danger' type='submit' onClick={handleEliminatePlace} >Eliminar Ubicacion</MDBBtn>
+                      ) : (
+                        <MDBBtn disabled style={{left: '50%', transform: 'translateX(-50%)', width: '100%'}} color= 'danger' type='submit' onClick={handleEliminatePlace} >
+                          <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
+                          Loading...
+                        </MDBBtn>
+                      )}
+
                     </MDBCol>
                 </MDBRow>
                 

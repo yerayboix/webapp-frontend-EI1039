@@ -8,7 +8,8 @@ import {
     MDBCardBody,
     MDBInput,
     MDBRow,
-    MDBCol
+    MDBCol,
+    MDBSpinner
   }
   from 'mdb-react-ui-kit';
 import Header from '../body/Header';
@@ -17,9 +18,11 @@ const ChangePswd = () => {
     const navigate = useNavigate();
     const [newpassword, setNewPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [changePswdIsLoading, setChangePswdIsLoading] = useState('');
 
 
     const onChangePswd = (e) => {
+        setChangePswdIsLoading(true);
         e.preventDefault();
         let userUID = window.localStorage.getItem('uid');
 
@@ -37,6 +40,7 @@ const ChangePswd = () => {
         }).then(res=>res.json())
         .catch(error => console.error('Error:',error))
         .then(response =>{
+            setChangePswdIsLoading(false);
             if (response.mssg === 'Success'){
                 navigate('/');
             }
@@ -65,13 +69,21 @@ const ChangePswd = () => {
 
                 <MDBInput wrapperClass='mb-4 w-100' label='Contraseña' id='new-password' type='password' onChange={(e) => setNewPassword(e.target.value)}
                                     required value={newpassword} minLength="6" size="lg"/>
+                
+                {!changePswdIsLoading ? (
+                    <MDBBtn type='submit' onClick={onChangePswd} className="btn btn-warning btn-lg btn-block " size='lg'  style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)' }} >
+                        Cambiar contraseña
+                        {errorMessage && <div className='justify-content-center align-items-center error' style={{width: '100%', color:'red'}}>
+                            <p>{errorMessage} </p>
+                        </div>}
+                    </MDBBtn>
+                ) : (
+                    <MDBBtn disabled type='submit' onClick={onChangePswd} className="btn btn-warning btn-lg btn-block " size='lg'  style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)' }} >
+                        <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
+                        Loading...
+                    </MDBBtn>
+                )}
 
-                <MDBBtn type='submit' onClick={onChangePswd} className="btn btn-warning btn-lg btn-block " size='lg'  style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)' }} >
-                            Cambiar contraseña
-                            {errorMessage && <div className='justify-content-center align-items-center error' style={{width: '100%', color:'red'}}>
-                     <p >{errorMessage} </p>
-                </div>}
-                        </MDBBtn>
                 </MDBCardBody>
             </MDBCard>
 

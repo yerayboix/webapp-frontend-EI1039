@@ -7,7 +7,8 @@ import {
     MDBCardBody,
     MDBInput,
     MDBRow,
-    MDBCol
+    MDBCol,
+    MDBSpinner
   }
   from 'mdb-react-ui-kit';
 
@@ -18,7 +19,10 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [submitIsLoading, setSubmitIsLoading] = useState('');
+
     const onSubmit = async (e) =>{
+      setSubmitIsLoading(true);
       e.preventDefault();
 
       const user = {
@@ -35,6 +39,7 @@ const Signup = () => {
       }).then(res => res.json())
       .catch(error => console.error('Error:', error))
       .then(response =>{
+        setSubmitIsLoading(false);
           if (response.mssg === 'Success'){
               navigate('/login');
           }
@@ -61,10 +66,17 @@ const Signup = () => {
                                 required value={email} size="lg"/>
               <MDBInput wrapperClass='mb-4 w-100' label='Contraseña' id='password' type='password' onChange={(e) => setPassword(e.target.value)}
                                 required value={password} size="lg"/>
-
-              <MDBBtn type='submit' onClick={onSubmit} className="btn btn-dark btn-lg btn-block" size='lg' >
-              Registrate!
-              </MDBBtn>
+              
+              {!submitIsLoading ? (
+                <MDBBtn type='submit' onClick={onSubmit} className="btn btn-dark btn-lg btn-block" size='lg' >
+                  Registrate!
+                </MDBBtn>
+              ) : (
+                <MDBBtn disabled type='submit' onClick={onSubmit} className="btn btn-dark btn-lg btn-block" size='lg' >
+                  <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
+                  Loading...
+                </MDBBtn>
+              )}
 
               {errorMessage && <div className="error"> {errorMessage} </div>} 
               <hr className="my-4" />

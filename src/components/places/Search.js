@@ -20,11 +20,15 @@ import {
     MDBModalTitle,
     MDBModalBody,
     MDBModalFooter,
+    MDBSpinner
 } from 'mdb-react-ui-kit';
 import Header from '../body/Header';
 import Footer from '../body/Footer';
  
 const Search = () => {
+
+    const [searchIsLoading, setSearchIsLoading] = useState('');
+    const [addIsLoading, setAddIsLoading] = useState('');
 
     const [staticModal, setStaticModal] = useState(false);
     const toggleShow = () => setStaticModal(!staticModal);
@@ -40,6 +44,7 @@ const Search = () => {
     // console.log(data)
     
     const handleSearch = async (e) => {
+        setSearchIsLoading(true);
         e.preventDefault();
         const searchObjective = {
             searchTerm,
@@ -60,6 +65,7 @@ const Search = () => {
         }).then(res=>res.json())
         .catch(error => console.error('Error:', error))
         .then(response =>{
+            setSearchIsLoading(false);
             if(response.mssg === 'Success'){
                 console.log(response.values);
                 setSearchResults(response.values);
@@ -72,6 +78,7 @@ const Search = () => {
     }
 
     const handleAdd = async (place) =>{
+        setAddIsLoading(true);
         let coordinates = [parseFloat(place.lon).toFixed(2), parseFloat(place.lat).toFixed(2)];
         let name = place.city;
         const entries = {
@@ -89,6 +96,7 @@ const Search = () => {
         }).then(res => res.json())
         .catch(error => console.log('Error:',error))
         .then(response =>{
+            setAddIsLoading(false);
             if(response.mssg === 'Success'){
                 setSearchResults([]);
                 console.log("Place added");
@@ -125,9 +133,18 @@ const Search = () => {
                                 </select>
                             </MDBCol>
                             <MDBCol>
-                                <MDBBtn type='submit' onClick={handleSearch} className="btn btn-dark btn-lg btn-block mb-4" size='lg' >
-                                    Enviar
-                                </MDBBtn>
+
+                                {!searchIsLoading ? (
+                                    <MDBBtn type='submit' onClick={handleSearch} className="btn btn-dark btn-lg btn-block mb-4" size='lg' >
+                                        Enviar
+                                    </MDBBtn>
+                                ) : (
+                                    <MDBBtn disabled type='submit' onClick={handleSearch} className="btn btn-dark btn-lg btn-block mb-4" size='lg' >
+                                        <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
+                                        Loading...
+                                    </MDBBtn>
+                                )}
+
                             </MDBCol>
                         </MDBRow>
                     <div>   
@@ -146,7 +163,18 @@ const Search = () => {
                                         {searchResults.map((place)=>(
                                             <tr key={place.formatted}>
                                                 <td>{place.formatted}</td>
-                                                <td><MDBBtn onClick={() => {handleAdd(place); toggleShow()}}>Add to List</MDBBtn></td>
+                                                <td>
+
+                                                    {!addIsLoading ? (
+                                                        <MDBBtn onClick={() => {handleAdd(place); toggleShow()}}>Add to List</MDBBtn>
+                                                    ) : (
+                                                        <MDBBtn disabled onClick={() => {handleAdd(place); toggleShow()}}>
+                                                            <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
+                                                            Loading...
+                                                        </MDBBtn>
+                                                    )}
+
+                                                </td>
                                             </tr>
                                         ))}
                                     </MDBTableBody>
@@ -158,7 +186,18 @@ const Search = () => {
                                     <MDBTableBody>
                                             <tr>
                                                 <td><h2>{searchResults[0].formatted}</h2></td>
-                                                <td><MDBBtn onClick={() => {handleAdd(searchResults[0]); toggleShow()}}>Add to List</MDBBtn></td>
+                                                <td>
+
+                                                    {!addIsLoading ? (
+                                                        <MDBBtn onClick={() => {handleAdd(searchResults[0]); toggleShow()}}>Add to List</MDBBtn>
+                                                    ) : (
+                                                        <MDBBtn disabled onClick={() => {handleAdd(searchResults[0]); toggleShow()}}>
+                                                            <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
+                                                            Loading...
+                                                        </MDBBtn>
+                                                    )}
+
+                                                </td>
                                             </tr>
                                     </MDBTableBody>
                                 </MDBTable>
