@@ -6,6 +6,8 @@ import Signup from './components/users/Signup';
 import Login from './components/users/Login';
 import Profile from './components/users/Profile';
 import ChangePswd from './components/users/ChangePswd';
+import Search from './components/places/Search';
+import Home from './components/Home';
 
 
  
@@ -14,12 +16,14 @@ function App() {
     <>
     <Router>
       <div>
-        <section>                              
+        <section style={{height: '100vh', display: 'flex', flexDirection: 'column'}}>                              
             <Routes>
+            <Route path="/" element={<Home/>}/>
               <Route path="/login" element={<Login/>}/>
               <Route path="/profile" element={<Profile/>}/>
               <Route path="/changepswd" element={<ChangePswd/>}/>
               <Route path="/signup" element={<Signup/>}/>
+              <Route path="/search" element={<Search/>}/>
             </Routes>                    
         </section>
       </div>

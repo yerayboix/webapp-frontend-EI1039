@@ -7,7 +7,8 @@ import {
     MDBCardBody,
     MDBInput,
     MDBRow,
-    MDBCol
+    MDBCol,
+    MDBSpinner
   }
   from 'mdb-react-ui-kit';
 
@@ -18,7 +19,10 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [submitIsLoading, setSubmitIsLoading] = useState('');
+
     const onSubmit = async (e) =>{
+      setSubmitIsLoading(true);
       e.preventDefault();
 
       const user = {
@@ -35,6 +39,7 @@ const Signup = () => {
       }).then(res => res.json())
       .catch(error => console.error('Error:', error))
       .then(response =>{
+        setSubmitIsLoading(false);
           if (response.mssg === 'Success'){
               navigate('/login');
           }
@@ -54,24 +59,31 @@ const Signup = () => {
           <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
             <MDBCardBody className='p-5 w-100 d-flex flex-column'>
 
-              <h2 className="h1 fw-bold mb-0" style={{letterSpacing: '1px'}}>Sign up</h2>
-              <p className="text-grey-50 mb-3">Please enter your login and password!</p>
+              <h2 className="h1 fw-bold mb-0" style={{letterSpacing: '1px'}}>Registrarse</h2>
+              <p className="text-grey-50 mb-3">Por favor introduce tu correo y contraseña!</p>
 
-              <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='email' type='email' onChange={(e) => setEmail(e.target.value)}  
+              <MDBInput wrapperClass='mb-4 w-100' label='Email' id='email' type='email' onChange={(e) => setEmail(e.target.value)}  
                                 required value={email} size="lg"/>
-              <MDBInput wrapperClass='mb-4 w-100' label='Password' id='password' type='password' onChange={(e) => setPassword(e.target.value)}
+              <MDBInput wrapperClass='mb-4 w-100' label='Contraseña' id='password' type='password' onChange={(e) => setPassword(e.target.value)}
                                 required value={password} size="lg"/>
-
-              <MDBBtn type='submit' onClick={onSubmit} className="btn btn-dark btn-lg btn-block" size='lg' >
-                Sign up
-              </MDBBtn>
+              
+              {!submitIsLoading ? (
+                <MDBBtn type='submit' onClick={onSubmit} className="btn btn-dark btn-lg btn-block" size='lg' >
+                  Registrate!
+                </MDBBtn>
+              ) : (
+                <MDBBtn disabled type='submit' onClick={onSubmit} className="btn btn-dark btn-lg btn-block" size='lg' >
+                  <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
+                  Loading...
+                </MDBBtn>
+              )}
 
               {errorMessage && <div className="error"> {errorMessage} </div>} 
               <hr className="my-4" />
               <p>
-                  Already have an account?{' '}
+                  Ya tienes una cuenta?{' '}
                   <NavLink to="/login" >
-                      Log in
+                      Inicia sesión
                   </NavLink>
               </p>    
             </MDBCardBody>

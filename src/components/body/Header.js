@@ -36,7 +36,7 @@ export default function Header() {
     <>
         <MDBNavbar expand='lg' light bgColor='dark' sticky>
         <MDBContainer className='d-flex justify-content-start' fluid>
-          <MDBNavbarBrand className='d-flex justify-content-start' bgcolor='light' href='#'><MDBIcon color='light' fas icon="home"/></MDBNavbarBrand>
+          <MDBNavbarBrand className='d-flex justify-content-start' bgcolor='light' href='/'><MDBIcon color='light' fas icon="home"/></MDBNavbarBrand>
         </MDBContainer>
         <MDBContainer className='d-flex justify-content-end' id='logged'>
             <MDBNavbarBrand className='d-flex justify-content-start' href='/profile'><MDBIcon color='white' fas icon="user" /></MDBNavbarBrand>

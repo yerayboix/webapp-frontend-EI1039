@@ -5,12 +5,11 @@ import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { useEffect } from 'react';
 import Header from '../body/Header';
-import { MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBRow, MDBBtn } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBRow, MDBBtn, MDBSwitch, MDBSpinner } from 'mdb-react-ui-kit';
 
 
 
 const Profile = () => {
-    console.log(window.localStorage)
     const navigate = useNavigate();
     const localUser = window.localStorage.getItem('email');
     const localUid = window.localStorage.getItem('uid');
@@ -18,11 +17,25 @@ const Profile = () => {
     const [userUID, setUserUID] = useState(localUid);
     const [errorMessage, setErrorMessage] = useState('');
     const [userServices, setUserServices] = useState(null);
+    const [eventos, setEventos] = useState(false);
+    const [noticias, setNoticias] = useState(false);
+    const [deleteAccountIsLoading, setDeleteAccountIsLoading] = useState('');
+    const [changeDefaultsIsLoading, setChangeDefaultsIsLoading] = useState('');
     
+    
+
+    const handleTicketSwitch = () => {
+        setEventos(!eventos);
+        console.log("HaEve" + eventos)
+    }
+    const handleCurrentSwitch = () => {
+        setNoticias(!noticias);
+        console.log("HaNot" + noticias)
+    }
     useEffect(() => {
         //Funcion que comprueba si estamos logeados
         const token = localStorage.getItem('uid');
-        console.log(token)
+        // console.log(token)
         if(token == null){
             navigate('/login');
         }
@@ -43,6 +56,8 @@ const Profile = () => {
         .then((response)=>{
             if(response.servicesByDefault.length === 3){
                 setUserServices(response.servicesByDefault);
+                setEventos(response.servicesByDefault[2])
+                setNoticias(response.servicesByDefault[1])
             }
             else{
                 setErrorMessage(response.mssg);
@@ -64,12 +79,55 @@ const Profile = () => {
     }
 
     const handleEliminateAccount = () => {
-
+        setDeleteAccountIsLoading(true);
+        
+        let obj = {userUID : localUid}
+        fetch("/user/delete",{
+            method:'POST',
+            body: JSON.stringify(obj),
+            headers:{
+                'Content-type':'application/json'
+            },
+        }).then(res=>res.json()).catch(e => 
+            console.error('Error', e)).then((response) => {
+                setDeleteAccountIsLoading(false);
+                if(response.mssg == 'Success') {
+                    navigate("/login");
+                }else {
+                    console.log(response);
+                }
+            });
     }
 
     const handleChangePaswd = () =>{
         navigate("/changepswd")
     }
+
+    const handleChangeDefault = () =>{
+        setChangeDefaultsIsLoading(true);
+        let obj = {userUID : localUid, weatherService : null, newsService : noticias, eventsService : eventos}
+        
+        console.log("BotEve" + eventos)
+        console.log("BotNot" + noticias)
+
+        fetch("services/default",{
+            method: 'POST',
+            body: JSON.stringify(obj),
+            headers:{
+                'Content-type':'application/json'
+            },
+        }).then(res=>res.json()).catch(e => 
+            console.error('Error', e)).then((response) => {
+                setChangeDefaultsIsLoading(false);
+                if(response.mssg == 'Success') {
+                    console.log(response);
+                }else {
+                    console.log(response);
+                }
+            });
+    }
+
+    
 
     return(
         
@@ -84,18 +142,45 @@ const Profile = () => {
                         <h2 className="h1 fw-bold mb-0" style={{letterSpacing: '1px'}}>Mi perfil:</h2>
                         <p className="text-grey-50 mb-3">Correo electronico: {user}</p>
                         <p className="text-grey-50 mb-3">Servicios por defecto:</p>
-                        <p> 
-                        Tiempo: {userServices && (userServices[0].toString())} <br></br>
-                        Eventos: {userServices && (userServices[1].toString())} <br></br>
-                        Noticias: {userServices && (userServices[2].toString())} <br></br>
+                        <p>     
+                        <MDBRow>
+                            <h6>Servicios por defecto al agregar ubicaciones</h6>
+                            <MDBCol>
+                                {userServices && <MDBSwitch checked={eventos} onChange={handleTicketSwitch} label='Eventos' />}
+                            </MDBCol>
+                            <MDBCol>
+                                {userServices && <MDBSwitch checked={noticias} onChange={handleCurrentSwitch}  label='Noticias' />} 
+                            </MDBCol>
+                        </MDBRow>
+
+                        {!changeDefaultsIsLoading ? (
+                            <MDBBtn type='submit' onClick={handleChangeDefault} className="btn btn-danger btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
+                                Guardar preferencias
+                            </MDBBtn>
+                        ) : (
+                            <MDBBtn disabled type='submit' onClick={handleChangeDefault} className="btn btn-danger btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
+                                <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
+                                Loading...
+                            </MDBBtn>
+                        )}
+                        
                         </p>
                         <div className='justify-content-center align-items-center' style={{width: '100%'}}>
                         <MDBBtn type='submit' onClick={handleChangePaswd} className="btn btn-warning btn-lg btn-block " size='lg'  style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)' }} >
                             Cambiar contraseña
                         </MDBBtn>
-                        <MDBBtn type='submit' onClick={handleEliminateAccount} className="btn btn-danger btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
-                            Eliminar cuenta
-                        </MDBBtn>
+
+                        {!deleteAccountIsLoading ? (
+                            <MDBBtn type='submit' onClick={handleEliminateAccount} className="btn btn-danger btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
+                                Eliminar cuenta
+                            </MDBBtn>
+                        ) : (
+                            <MDBBtn disabled type='submit' onClick={handleEliminateAccount} className="btn btn-danger btn-lg btn-block" size='lg' style={{borderRadius: '1rem', maxWidth: '300px', left: '50%', transform: 'translateX(-50%)'}}>
+                                <MDBSpinner size='sm' role='status' tag='span' className='me-2' />
+                                Loading...
+                            </MDBBtn>
+                        )}
+
                         </div>
 
                     </MDBCardBody>
